@@ -29,6 +29,10 @@
   <main>
     <!-- Hero -->
     <section class="hero" aria-labelledby="hero-title">
+      <!-- Hero 背景视频：把 mp4 放到 assets/videos/hero.mp4，没有视频时回退到渐变背景 -->
+      <video autoplay muted loop playsinline style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: -2;" poster="assets/images/hero-poster.jpg">
+        <source src="assets/videos/hero.mp4" type="video/mp4">
+      </video>
       <div class="container hero-grid">
         <div class="hero-copy">
           <p class="hero-identity">
@@ -111,34 +115,41 @@
         <p class="section-aside">精选代表性作品，展示你在不同项目中的实际产出和判断力。</p>
       </div>
       <div class="container editing-grid">
-        <article class="editing-card" tabindex="0">
+        <article class="editing-card" tabindex="0" data-video="assets/videos/work-01.mp4">
           <div class="editing-card-visual">
-            <img src="https://placehold.co/800x500/1a1a2e/ffffff?text=作品+01" alt="作品 01 封面">
+            <!-- 有封面图就放 assets/images/work-01-cover.jpg，没有就显示视频首帧 -->
+            <video muted loop playsinline preload="metadata" style="width:100%;height:100%;object-fit:cover;">
+              <source src="assets/videos/work-01.mp4" type="video/mp4">
+            </video>
           </div>
           <div class="editing-card-info">
-            <div class="editing-card-meta"><span>作品 01</span><span>类别标签</span></div>
+            <div class="editing-card-meta"><span>作品 01</span><span>01:00</span></div>
             <h3>作品名称</h3>
-            <p>简短描述这个项目，展示你做了什么、达到了什么效果。</p>
+            <p>简短描述这个视频作品，展示你做了什么、达到了什么效果。</p>
           </div>
         </article>
-        <article class="editing-card" tabindex="0">
+        <article class="editing-card" tabindex="0" data-video="assets/videos/work-02.mp4">
           <div class="editing-card-visual">
-            <img src="https://placehold.co/800x500/16213e/ffffff?text=作品+02" alt="作品 02 封面">
+            <video muted loop playsinline preload="metadata" style="width:100%;height:100%;object-fit:cover;">
+              <source src="assets/videos/work-02.mp4" type="video/mp4">
+            </video>
           </div>
           <div class="editing-card-info">
-            <div class="editing-card-meta"><span>作品 02</span><span>类别标签</span></div>
+            <div class="editing-card-meta"><span>作品 02</span><span>项目案例</span></div>
             <h3>作品名称</h3>
-            <p>简短描述这个项目，展示你做了什么、达到了什么效果。</p>
+            <p>简短描述这个视频作品，展示你做了什么、达到了什么效果。</p>
           </div>
         </article>
-        <article class="editing-card" tabindex="0">
+        <article class="editing-card" tabindex="0" data-video="assets/videos/work-03.mp4">
           <div class="editing-card-visual">
-            <img src="https://placehold.co/800x500/0f3460/ffffff?text=作品+03" alt="作品 03 封面">
+            <video muted loop playsinline preload="metadata" style="width:100%;height:100%;object-fit:cover;">
+              <source src="assets/videos/work-03.mp4" type="video/mp4">
+            </video>
           </div>
           <div class="editing-card-info">
-            <div class="editing-card-meta"><span>作品 03</span><span>类别标签</span></div>
+            <div class="editing-card-meta"><span>作品 03</span><span>00:30</span></div>
             <h3>作品名称</h3>
-            <p>简短描述这个项目，展示你做了什么、达到了什么效果。</p>
+            <p>简短描述这个视频作品，展示你做了什么、达到了什么效果。</p>
           </div>
         </article>
       </div>
@@ -234,12 +245,61 @@
   <!-- Toast -->
   <div class="toast" id="toast"></div>
 
+  <!-- Video Detail Modal -->
+  <div id="video-modal" style="display: none; position: fixed; inset: 0; z-index: 100; background: rgba(0,0,0,.88); backdrop-filter: blur(18px); align-items: center; justify-content: center;">
+    <div id="modal-shell" style="position: relative; width: min(940px, calc(100% - 32px)); max-height: min(900px, calc(100vh - 32px)); border-radius: 14px; overflow: hidden; background: #fff; box-shadow: 0 26px 80px rgba(0,0,0,.4);">
+      <!-- Close button -->
+      <button id="video-close" style="position: absolute; top: 16px; right: 16px; z-index: 10; width: 44px; height: 44px; border: 1px solid rgba(255,255,255,.7); border-radius: 50%; background: rgba(255,255,255,.8); color: #1d1d1f; cursor: pointer; font-size: 20px; display: grid; place-items: center; transition: background 0.2s;">&times;</button>
+
+      <!-- Scrollable content -->
+      <div id="modal-scroll" style="overflow-y: auto; max-height: min(900px, calc(100vh - 32px)); -webkit-overflow-scrolling: touch;">
+        <!-- Video player -->
+        <div style="background: #000;">
+          <video id="video-player" controls style="width: 100%; aspect-ratio: 16/9; object-fit: contain; background: #000; display: block;">
+            <source src="" type="video/mp4">
+            你的浏览器不支持视频播放。
+          </video>
+        </div>
+
+        <!-- Content body -->
+        <div style="padding: 38px 40px 42px;">
+          <!-- Meta row -->
+          <div id="modal-meta" style="display: flex; justify-content: space-between; gap: 16px; margin-bottom: 14px; color: #6e6e73; font-size: 13px;">
+            <span id="modal-category">代表作 · 视频剪辑</span>
+            <span id="modal-duration">01:00</span>
+          </div>
+
+          <!-- Title -->
+          <h2 id="modal-title" style="font-size: 42px; font-weight: 600; line-height: 1.08; margin: 0 0 16px; color: #1d1d1f;">作品名称</h2>
+
+          <!-- Description -->
+          <p id="modal-desc" style="max-width: 680px; margin: 0 0 34px; color: #6e6e73; font-size: 17px; line-height: 1.68;">作品描述内容。</p>
+
+          <!-- Making process section -->
+          <div id="modal-process" style="margin: 42px 0 36px;">
+            <p style="margin: 0 0 12px; color: #6e6e73; font-size: 13px; font-weight: 600;">制作过程</p>
+            <h3 style="font-size: 28px; font-weight: 600; margin: 0 0 20px; color: #1d1d1f;">制作过程</h3>
+            <div id="modal-gallery" style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px;">
+              <!-- Gallery images injected by JS -->
+            </div>
+          </div>
+
+          <!-- Bottom tags row -->
+          <div style="display: flex; align-items: flex-start; justify-content: space-between; gap: 20px; padding-top: 22px; border-top: 1px solid #d2d2d7; color: #6e6e73; font-size: 12px; font-weight: 600;">
+            <span id="modal-skills">视频剪辑 · 镜头节奏 · 成片输出</span>
+            <div id="modal-tags" style="display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 7px;">
+              <!-- Tags injected by JS -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <script>
     // Header scroll effect
     const header = document.querySelector('.site-header');
-    const onScroll = () => {
-      header.classList.toggle('is-scrolled', window.scrollY > 60);
-    };
+    const onScroll = () => { header.classList.toggle('is-scrolled', window.scrollY > 60); };
     window.addEventListener('scroll', onScroll, { passive: true });
     onScroll();
 
@@ -257,6 +317,141 @@
         });
       });
     });
+
+    // ===== 作品数据 =====
+    // 每个作品的详细信息，后续替换成你的真实内容
+    const worksData = {
+      'work-01': {
+        title: '仿实拍风格短片',
+        category: '代表作 · 视频剪辑',
+        duration: '01:00',
+        desc: '这支仿实拍风格短片作为我的代表作，围绕人物关系和场景氛围组织画面，通过镜头节奏、情绪衔接与成品质感完成一段完整的视频表达。',
+        skills: '视频剪辑 · 镜头节奏 · 成片输出',
+        tags: ['代表作', '仿实拍', '视频剪辑'],
+        gallery: [
+          { src: 'assets/images/hero-poster.jpg', caption: '画布记录：从角色资产到成片镜头' }
+        ]
+      },
+      'work-02': {
+        title: '作品名称 02',
+        category: '项目案例',
+        duration: '02:30',
+        desc: '作品描述内容，展示你在项目中的具体工作和成果。',
+        skills: '技能标签',
+        tags: ['标签1', '标签2'],
+        gallery: []
+      },
+      'work-03': {
+        title: '作品名称 03',
+        category: '类别标签',
+        duration: '00:30',
+        desc: '作品描述内容。',
+        skills: '技能标签',
+        tags: ['标签1'],
+        gallery: []
+      },
+      'work-04': {
+        title: '作品名称 04',
+        category: '类别标签',
+        duration: '01:30',
+        desc: '作品描述内容。',
+        skills: '技能标签',
+        tags: ['标签1'],
+        gallery: []
+      },
+      'work-05': {
+        title: '作品名称 05',
+        category: '类别标签',
+        duration: '00:45',
+        desc: '作品描述内容。',
+        skills: '技能标签',
+        tags: ['标签1'],
+        gallery: []
+      },
+      'work-06': {
+        title: '作品名称 06',
+        category: '类别标签',
+        duration: '02:00',
+        desc: '作品描述内容。',
+        skills: '技能标签',
+        tags: ['标签1'],
+        gallery: []
+      }
+    };
+
+    // ===== 视频弹窗 =====
+    const modal = document.getElementById('video-modal');
+    const modalScroll = document.getElementById('modal-scroll');
+    const player = document.getElementById('video-player');
+    const closeBtn = document.getElementById('video-close');
+
+    function openModal(workId) {
+      const data = worksData[workId];
+      if (!data) return;
+
+      // 填充内容
+      player.querySelector('source').src = 'assets/videos/' + workId + '.mp4';
+      player.load();
+      document.getElementById('modal-title').textContent = data.title;
+      document.getElementById('modal-category').textContent = data.category;
+      document.getElementById('modal-duration').textContent = data.duration;
+      document.getElementById('modal-desc').textContent = data.desc;
+      document.getElementById('modal-skills').textContent = data.skills;
+
+      // 标签
+      const tagsEl = document.getElementById('modal-tags');
+      tagsEl.innerHTML = data.tags.map(t => '<span style="padding:6px 9px;border:1px solid #d2d2d7;border-radius:6px;font-size:12px;">' + t + '</span>').join('');
+
+      // 制作过程画廊
+      const galleryEl = document.getElementById('modal-gallery');
+      if (data.gallery && data.gallery.length > 0) {
+        galleryEl.innerHTML = data.gallery.map(g =>
+          '<figure style="margin:0;overflow:hidden;border:1px solid #d2d2d7;border-radius:8px;background:#fbfbfd;">' +
+          '<img src="' + g.src + '" alt="' + g.caption + '" style="width:100%;height:auto;display:block;">' +
+          '<figcaption style="padding:12px 14px 14px;color:#6e6e73;font-size:12px;font-weight:600;">' + g.caption + '</figcaption>' +
+          '</figure>'
+        ).join('');
+        document.getElementById('modal-process').style.display = 'block';
+      } else {
+        document.getElementById('modal-process').style.display = 'none';
+      }
+
+      modal.style.display = 'flex';
+      modalScroll.scrollTop = 0;
+      setTimeout(() => player.play().catch(() => {}), 300);
+    }
+
+    function closeModal() {
+      modal.style.display = 'none';
+      player.pause();
+      player.currentTime = 0;
+    }
+
+    // 卡片 hover 预览 + 点击打开详情
+    document.querySelectorAll('.editing-card[data-video]').forEach(card => {
+      const preview = card.querySelector('video');
+      if (!preview) return;
+      card.style.cursor = 'pointer';
+
+      card.addEventListener('mouseenter', () => {
+        preview.currentTime = 0;
+        preview.play().catch(() => {});
+      });
+      card.addEventListener('mouseleave', () => {
+        preview.pause();
+        preview.currentTime = 0;
+      });
+
+      card.addEventListener('click', () => {
+        const videoFile = card.dataset.video; // e.g. "assets/videos/work-01.mp4"
+        const workId = videoFile.replace('assets/videos/', '').replace('.mp4', '');
+        openModal(workId);
+      });
+    });
+
+    closeBtn.addEventListener('click', closeModal);
+    modal.addEventListener('click', (e) => { if (e.target === modal) closeModal(); });
+    document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && modal.style.display === 'flex') closeModal(); });
   </script>
 </body>
 </html>
