@@ -10,13 +10,13 @@
    ============================================================ */
 
 /* ============================================================
-   自托管中文衬线标题字体（子集化，约 93KB）
-   由 tools/build-fonts.py 生成；改标题后重跑该脚本刷新字集。
+   自托管中文衬线标题字体（完整简体字库，约 2MB，含 7333 常用汉字）
+   改标题文案不会掉字，无需重跑脚本。
    font-display: swap —— 字体未就绪时先用系统衬线渲染，不挡首屏。
    ============================================================ */
 @font-face {
-  font-family: 'Noto Serif SC Subset';
-  src: url('assets/fonts/noto-serif-sc-subset.woff2') format('woff2');
+  font-family: 'Noto Serif SC';
+  src: url('assets/fonts/noto-serif-sc.woff2') format('woff2');
   font-weight: 400;
   font-style: normal;
   font-display: swap;
@@ -63,7 +63,7 @@ html[data-accent="forest"] {
   --noir-text:   #A9A199;
 
   /* 字形 */
-  --font-display: 'Noto Serif SC Subset', 'Didot', 'Hoefler Text', Georgia, 'Songti SC', 'STSong', 'SimSun', serif;
+  --font-display: 'Noto Serif SC', 'Didot', 'Hoefler Text', Georgia, 'Songti SC', 'STSong', 'SimSun', serif;
   --font-sans: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'PingFang SC',
                'Helvetica Neue', 'Noto Sans SC', 'Microsoft YaHei', sans-serif;
   --font-mono: 'SF Mono', 'JetBrains Mono', ui-monospace, Menlo, Consolas, monospace;
