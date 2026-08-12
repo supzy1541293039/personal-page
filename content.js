@@ -10,23 +10,22 @@
 
 window.SITE = {
 
-  /* ---------- 0. 媒体资源根（视频 / 封面图） -------------------
-     决定视频和封面图从哪里加载。字体、图标等小文件不受影响，
+  /* ---------- 0. 媒体资源根（视频 / 封面 / 工作流图） ---------
+     决定视频和封面从哪里加载。字体、图标等小文件不受影响，
      始终跟着网页走（GitHub Pages），无需上传 COS。
 
      两种用法：
      A. 本地 / GitHub Pages 自带资源（默认）
         assetBase: ''
-        下面各 video / poster 字段保持 'assets/videos/xxx.mp4' 即可。
+        下面各 video / cover / workflow 字段保持相对路径即可。
 
      B. 视频放腾讯云 COS（推荐用于大视频）
         assetBase: 'https://你的桶名-1234567890.cos.ap-guangzhou.myqcloud.com'
         —— 末尾不要加斜杠。
-        —— 上传时保持 assets/ 目录结构（assets/videos/、assets/images/），
-           代码会自动拼成 桶域名 + / + assets/videos/xxx.mp4。
+        —— 上传时保持 assets/ 目录结构（assets/videos/、assets/works/{slug}/、assets/images/），
+           代码会自动拼成 桶域名 + / + 相对路径。
 
-     另外：任何字段如果直接写完整 http(s) 链接，会原样使用、
-     不受 assetBase 影响。适合只有个别文件放 COS 的情况。
+     任何字段如果直接写完整 http(s) 链接，会原样使用、不受 assetBase 影响。
   ------------------------------------------------------------ */
   assetBase: '',
 
@@ -34,30 +33,22 @@ window.SITE = {
   profile: {
     // TODO: 换成你的真名
     name: '你的名字',
-    // 页眉左上角的小标记，建议用姓名首字母，2 个字符最好看
+    // 页眉左上角的小标记，建议用姓名首字母
     mark: 'YN',
-    // 首屏大标题 —— 这是全站最重要的一句话。
-    // 原则：说你能交付什么，而不是你是谁。HR 前 3 秒只看这句。
+    // 首屏大标题 —— 全站最重要的一句话
     // TODO: 按你的真实强项改写
     headline: '把 brief 做成<em>能投的片子</em>',
     // 副标题：一句话说清你的方法和边界
     subline: '我用 AI 生成 + 传统剪辑调色的混合流程做广告片和短剧。从脚本、分镜、镜头生成到成片交付，一个人能跑完整条链路。',
-    // 职位定位，会出现在页眉下方和简历页
     positioning: 'AIGC 视频创作 · 广告 / 短剧',
-    // 首屏底部的关键词，用 · 分隔的短标签
     keywords: ['广告片', '竖屏短剧', 'AI 分镜', '人物一致性', '成片调色'],
-    // 求职状态，显示在联系区
     availability: '开放机会 · 可即时到岗',
   },
 
-  /* ---------- 2. 数据条 -------------------------------------
-     换掉了原来「10+项目 / 3年经验」这类不可验证的写法。
-     value 里的数字会做 count-up 动画；unit 是数字后面的单位。
-     TODO: 全部换成你的真实数字，宁少勿虚。
-  ---------------------------------------------------------- */
+  /* ---------- 2. 数据条 ------------------------------------- */
   stats: [
-    { value: 12, unit: '支', label: '已交付成片', note: '广告 6 / 短剧 4 / 实验 2' },
-    { value: 26, unit: '分钟', label: '累计成片时长', note: '含竖屏与横屏' },
+    { value: 7, unit: '支', label: '已交付成片', note: '短剧 3 / 短片 2 / 广告 2' },
+    { value: 13, unit: '分钟', label: '累计成片时长', note: '含竖屏与横屏' },
     { value: 9, unit: '个', label: '打通的工具链', note: '生成到后期全流程' },
     { value: 48, unit: '小时', label: '最快交付周期', note: '从 brief 到可投放' },
   ],
@@ -66,18 +57,13 @@ window.SITE = {
   statement: {
     eyebrow: '我怎么工作',
     title: '模型只负责出画面，<em>片子好不好是判断力的事。</em>',
-    // TODO: 用你自己的话重写，这段决定对方觉得你是"会用工具的人"还是"能做片子的人"
     body: 'AI 让出画面变得很便宜，也让平庸的画面变得更多。我的工作重心不在抽卡，而在抽卡之前和之后：先把 brief 拆成能拍的镜头，再从几十条素材里挑出情绪对得上的那几条，最后靠剪辑节奏和调色把它们缝成一支完整的片子。',
     quote: '我对最终成片负责，不只对我那一段负责。',
     // TODO: 换成你的邮箱
     email: 'your@email.com',
   },
 
-  /* ---------- 4. 工作流 ------------------------------------
-     这个板块是给广告公司看的：他们真正关心的不是你会几个模型，
-     而是你能不能稳定产能、能不能配合他们的流程。
-     TODO: 按你的真实流程调整步骤和工具
-  ---------------------------------------------------------- */
+  /* ---------- 4. 工作流轨道 ---------------------------------- */
   workflow: {
     eyebrow: '生产流程',
     title: '一条能重复跑的链路，<em>不靠运气。</em>',
@@ -99,153 +85,138 @@ window.SITE = {
     { id: 'all', label: '全部', note: '' },
     { id: 'ad', label: '广告', note: '品牌与产品片，看转化和过审' },
     { id: 'drama', label: '短剧', note: '连续叙事，看人物一致性与情绪节奏' },
-    { id: 'lab', label: '实验', note: '技术验证与风格探索' },
+    { id: 'film', label: '短片', note: '完整故事，看叙事能力' },
   ],
 
   /* ---------- 6. 作品 --------------------------------------
-     现在挂的是占位素材（stock 视频），真作品到位后：
-       1) 把 mp4 放到 assets/videos/ 或改成 COS 外链
-       2) 改 video 字段 + 文字，不用动 HTML
-     duration 留空会自动从视频元数据读取真实时长，建议留空。
-     featured: true 的作品在首页会占双倍宽度，只设一支。
-
-     process 是弹窗里的「制作链路」，prompts 是关键提示词。
-     ⚠️ 敢把 prompt 和分镜贴出来，是 AIGC 岗最有效的可信度证明。
-        这是你和"只会抽卡的人"的分水岭，强烈建议认真填。
+     slug 与文件路径约定：
+       assets/works/{slug}/video.mp4
+       assets/works/{slug}/cover.jpg   （可选，没有就用视频首帧）
+       assets/works/{slug}/workflow.png（可选，工作流原图，会在弹窗「完整工作流」区展示）
+     aspect 决定卡片比例：9:16（竖屏短剧）/ 16:9（其他）
   ---------------------------------------------------------- */
   works: [
+
     {
-      id: 'work-01',
-      title: '仿实拍风格短片',
-      category: 'drama',
-      featured: true,
-      year: '2026',
-      client: '自主命题',
-      role: '导演 / 分镜 / 生成 / 剪辑 / 调色',
-      video: 'assets/videos/work-01.mp4',
-      poster: '',
-      duration: '',
-      summary: '围绕人物关系和场景氛围组织画面，用镜头节奏和情绪衔接完成一段完整表达。全片无实拍素材。',
-      brief: 'TODO：这支片子要解决什么问题？给谁看？想让人看完记住什么？一到两句写清。',
-      result: 'TODO：可验证的结果。比如完播率、平台推荐、客户复购、比稿结果。没有数据就写成片规格和交付周期。',
+      id: 'changye', slug: 'changye',
+      video: 'assets/works/changye/video.mp4',
+      title: '长夜有灯', en: 'In the Long Night, There Is a Lamp',
+      category: 'drama', featured: true, aspect: '9:16',
+      year: '2025', client: '自主命题',
+      role: '导演 / 分镜 / AI 生成 / 剪辑 / 调色',
+      duration: '01:37', resolution: '2160 × 3840 · 竖屏',
+      summary: '古装权谋爱情短剧。红袍女将携血诏入宫，与冷面君王在乱局中对峙又相守。全片 AI 生成，靠人物一致性和情绪节奏撑起完整叙事。',
+      brief: 'TODO：一两句话说清这支短剧想讲什么。',
+      result: 'TODO：可验证结果。比如发布平台、完播率、客户反馈；没数据就写交付规格和周期。',
       tools: ['可灵', 'Midjourney', 'Premiere', '达芬奇'],
-      tags: ['代表作', '仿实拍', '人物一致性'],
+      tags: ['古装', '权谋', '爱情', '代表作'],
       process: [
-        { no: '01', title: '角色锁定', body: 'TODO：怎么保证同一个人在不同镜头里长得一样？用了什么参考图/垫图/换脸策略？' },
-        { no: '02', title: '分镜与运镜', body: 'TODO：镜头表怎么排的？为什么这样切？' },
-        { no: '03', title: '生成与筛选', body: 'TODO：一共生成多少条，留了几条，筛选标准是什么？' },
-        { no: '04', title: '后期缝合', body: 'TODO：调色统一了什么？声音怎么处理的？' },
+        { no: '01', title: '角色锁定', body: 'TODO：怎么保证女主在不同镜头里脸一样？用了什么参考图/垫图策略？' },
+        { no: '02', title: '分镜与运镜', body: 'TODO：古装场景的镜头表怎么排？' },
+        { no: '03', title: '生成与筛选', body: 'TODO：每镜生成多少条、筛选标准是什么？' },
+        { no: '04', title: '后期缝合', body: 'TODO：调色做了什么统一？对白/配乐/音效怎么处理的？' },
       ],
       prompts: [
-        // TODO: 贴 1—2 条真实的关键 prompt，这比任何形容词都有说服力
-        { model: '可灵 1.6', text: 'TODO: 把你真实用过的关键提示词贴在这里，包括镜头运动、光线、镜头焦段等描述。' },
-      ],
-      gallery: [
-        { src: 'assets/images/hero-poster.jpg', caption: '占位图 · TODO：换成分镜表或关键帧对比' },
+        { model: '可灵', text: 'TODO: 把真实用过的关键提示词贴在这里。' },
       ],
     },
+
     {
-      id: 'work-02',
-      title: 'TODO：广告片名称',
-      category: 'ad',
-      featured: false,
-      year: '2026',
-      client: 'TODO：品牌方或自主命题',
-      role: 'TODO：你在这支片里做了什么',
-      video: 'assets/videos/work-02.mp4',
-      poster: '',
-      duration: '',
-      summary: 'TODO：一句话说清这支片卖什么、用什么方式卖。',
-      brief: 'TODO：客户诉求 / 命题。',
-      result: 'TODO：投放数据或交付结果。',
+      id: 'qingqing', slug: 'qingqing',
+      video: 'assets/works/qingqing/video.mp4',
+      title: '倾倾之夜', en: 'Tender Night',
+      category: 'drama', featured: false, aspect: '9:16',
+      year: '2025', client: '自主命题',
+      role: '导演 / 分镜 / AI 生成 / 剪辑',
+      duration: '02:10', resolution: '2160 × 3840 · 竖屏',
+      summary: '都市言情短剧。轮椅男主与守护他的女主，在奢华公寓和雨夜里展开一段关于脆弱与依赖的关系。紫红金调性。',
+      brief: 'TODO', result: 'TODO',
+      tools: ['可灵', 'Midjourney', '剪映'],
+      tags: ['都市', '言情', '轮椅'],
+      process: [{ no: '01', title: 'TODO', body: 'TODO' }],
+      prompts: [],
+    },
+
+    {
+      id: 'zero-echo', slug: 'zero-echo',
+      video: 'assets/works/zero-echo/video.mp4',
+      title: '零号回声', en: 'ZERO ECHO',
+      category: 'film', featured: false, aspect: '16:9',
+      year: '2025', client: '自主命题',
+      role: '导演 / 编剧 / AI 生成 / 剪辑',
+      duration: '01:21', resolution: '3840 × 2160 · 横屏',
+      summary: '赛博科幻短片。银发女孩从 CORE 00 实验舱逃出，红发男子在废墟中等她——她逃出去是为了活，她回来是为了夺回一切。',
+      brief: 'TODO', result: 'TODO',
+      tools: ['可灵', 'Midjourney', 'Premiere'],
+      tags: ['科幻', '动作', '赛博'],
+      process: [{ no: '01', title: 'TODO', body: 'TODO' }],
+      prompts: [],
+    },
+
+    {
+      id: 'you-are-great', slug: 'you-are-great',
+      video: 'assets/works/you-are-great/video.mp4',
+      title: '你，很棒', en: 'You, Very Good',
+      category: 'film', featured: false, aspect: '16:9',
+      year: '2025', client: '自主命题',
+      role: '导演 / 分镜 / AI 生成 / 剪辑',
+      duration: '03:49', resolution: '3840 × 2160 · 横屏',
+      summary: '家庭亲情短片。一段关于"责备里藏着爱"的代际故事，最终以一句最想说的肯定收尾。暖光调性。',
+      brief: 'TODO', result: 'TODO',
+      tools: ['可灵', 'Midjourney', 'Premiere'],
+      tags: ['家庭', '亲情', '成长'],
+      process: [{ no: '01', title: 'TODO', body: 'TODO' }],
+      prompts: [],
+    },
+
+    {
+      id: 'stranger', slug: 'stranger',
+      video: 'assets/works/stranger/video.mp4',
+      title: '婚姻里的陌生人', en: 'A Stranger in Our Marriage',
+      category: 'drama', featured: false, aspect: '9:16',
+      year: '2025', client: '自主命题',
+      role: '导演 / 分镜 / AI 生成 / 剪辑',
+      duration: '01:44', resolution: '2160 × 3840 · 竖屏',
+      summary: '现代都市悬疑短剧。婚礼上的四个女人、一枚婚戒、一只珍珠耳环——"She wasn\'t the one I feared. He was."',
+      brief: 'TODO', result: 'TODO',
+      tools: ['可灵', 'Midjourney', 'Premiere'],
+      tags: ['都市', '悬疑', '婚姻'],
+      process: [{ no: '01', title: 'TODO', body: 'TODO' }],
+      prompts: [],
+    },
+
+    {
+      id: 'ad-chocolate', slug: 'ad-chocolate',
+      video: 'assets/works/ad-chocolate/video.mp4',
+      title: '巧克力广告', en: 'Chocolate Spot',
+      category: 'ad', featured: false, aspect: '16:9',
+      year: '2025', client: 'TODO：品牌方或自主命题',
+      role: '导演 / 分镜 / AI 生成 / 剪辑',
+      duration: '01:11', resolution: '3840 × 2160 · 横屏',
+      summary: '法式田园调性广告。雨后木屋、薄荷绿衬衫、一杯咖啡和一段静谧时光。',
+      brief: 'TODO', result: 'TODO',
       tools: ['即梦', 'AE'],
-      tags: ['产品片'],
-      process: [
-        { no: '01', title: 'TODO：步骤名', body: 'TODO：这一步你做了什么，判断标准是什么。' },
-      ],
+      tags: ['广告', '食品', '田园'],
+      process: [{ no: '01', title: 'TODO', body: 'TODO' }],
       prompts: [],
-      gallery: [],
     },
+
     {
-      id: 'work-03',
-      title: 'TODO：作品名称',
-      category: 'lab',
-      featured: false,
-      year: '2026',
-      client: '技术验证',
-      role: 'TODO',
-      video: 'assets/videos/work-03.mp4',
-      poster: '',
-      duration: '',
-      summary: 'TODO：验证了什么技术问题，结论是什么。',
-      brief: '',
-      result: '',
-      tools: ['Runway'],
-      tags: ['实验'],
-      process: [],
+      id: 'ad-perfume', slug: 'ad-perfume',
+      video: 'assets/works/ad-perfume/video.mp4',
+      title: '香水广告', en: 'Perfume Spot',
+      category: 'ad', featured: false, aspect: '16:9',
+      year: '2025', client: 'TODO：品牌方或自主命题',
+      role: '导演 / 分镜 / AI 生成 / 剪辑',
+      duration: '01:20', resolution: '2880 × 2160 · 横屏',
+      summary: '柔粉调性香水广告。"会希望有人看见我的脆弱"——紫色花瓣、粉墙、薰衣草座椅上的女性独白。',
+      brief: 'TODO', result: 'TODO',
+      tools: ['即梦', 'AE'],
+      tags: ['广告', '美妆', '柔粉'],
+      process: [{ no: '01', title: 'TODO', body: 'TODO' }],
       prompts: [],
-      gallery: [],
     },
-    {
-      id: 'work-04',
-      title: 'TODO：作品名称',
-      category: 'ad',
-      featured: false,
-      year: '2025',
-      client: 'TODO',
-      role: 'TODO',
-      video: 'assets/videos/work-04.mp4',
-      poster: '',
-      duration: '',
-      summary: 'TODO：一句话描述。',
-      brief: '',
-      result: '',
-      tools: ['即梦'],
-      tags: [],
-      process: [],
-      prompts: [],
-      gallery: [],
-    },
-    {
-      id: 'work-05',
-      title: 'TODO：作品名称',
-      category: 'drama',
-      featured: false,
-      year: '2025',
-      client: 'TODO',
-      role: 'TODO',
-      video: 'assets/videos/work-05.mp4',
-      poster: '',
-      duration: '',
-      summary: 'TODO：一句话描述。',
-      brief: '',
-      result: '',
-      tools: ['可灵'],
-      tags: [],
-      process: [],
-      prompts: [],
-      gallery: [],
-    },
-    {
-      id: 'work-06',
-      title: 'TODO：作品名称',
-      category: 'lab',
-      featured: false,
-      year: '2025',
-      client: 'TODO',
-      role: 'TODO',
-      video: 'assets/videos/work-06.mp4',
-      poster: '',
-      duration: '',
-      summary: 'TODO：一句话描述。',
-      brief: '',
-      result: '',
-      tools: ['Midjourney'],
-      tags: [],
-      process: [],
-      prompts: [],
-      gallery: [],
-    },
+
   ],
 
   /* ---------- 7. 简历 -------------------------------------- */
@@ -257,8 +228,6 @@ window.SITE = {
       { k: '到岗时间', v: 'TODO：随时 / 具体日期' },
       { k: '邮箱', v: 'your@email.com' },
     ],
-    // 工具矩阵分三级，比一排平铺的标签可信得多
-    // level: 1=熟练（能独立出活） 2=掌握（能配合） 3=了解（能上手）
     toolMatrix: [
       { group: '视频生成', items: [
         { name: '可灵', level: 1 }, { name: '即梦', level: 1 },
@@ -276,24 +245,15 @@ window.SITE = {
         { name: 'ElevenLabs', level: 2 }, { name: 'Audition', level: 3 },
       ]},
     ],
-    // TODO: 换成真实经历。没有正式工作经历就写项目经历，不要编年限。
     experience: [
       {
         period: '2025 — 至今',
         title: 'TODO：项目 / 公司名称',
         role: 'TODO：你的角色',
-        body: 'TODO：你负责什么、怎么做的、结果如何。用具体动作和数字，避免"参与了"这种模糊表述。',
-        tags: ['TODO'],
-      },
-      {
-        period: '2024 — 2025',
-        title: 'TODO：项目 / 公司名称',
-        role: 'TODO：你的角色',
-        body: 'TODO：同上。',
+        body: 'TODO：你负责什么、怎么做的、结果如何。',
         tags: ['TODO'],
       },
     ],
-    // 简历 PDF 放到 assets/ 下，没有就留空字符串，按钮会自动隐藏
     pdf: '',
   },
 
@@ -303,7 +263,6 @@ window.SITE = {
     title: '想聊片子，<em>随时找我。</em>',
     body: '广告、短剧、或者只是想问问某个镜头怎么做出来的，都欢迎。工作日一般当天回。',
     methods: [
-      // TODO: 换成真实信息。不想公开手机号可以整条删掉。
       { label: '邮箱', value: 'your@email.com', copy: 'your@email.com' },
       { label: '微信', value: 'your_wechat', copy: 'your_wechat' },
       { label: '手机', value: '138-0000-0000', copy: '13800000000' },

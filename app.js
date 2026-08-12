@@ -239,9 +239,11 @@
      ========================================================= */
   function cardHTML(w, idx) {
     const featured = !!w.featured;
+    const aspect = w.aspect || '16:9';
     return `
       <article class="card reveal${featured ? ' is-featured' : ''}" style="--d:${idx * 70}ms"
                role="button" tabindex="0" data-id="${esc(w.id)}" data-cat="${esc(w.category)}"
+               data-aspect="${esc(aspect)}"
                aria-label="${esc(w.title)}，打开作品详情">
         <div class="card-visual">
           <span class="card-badge${featured ? ' is-featured' : ''}">${featured ? '代表作 · ' : ''}${esc(catLabel(w.category))}</span>
@@ -580,6 +582,20 @@
         </div>
       </div>` : '';
 
+    // 完整工作流原图：assets/works/{slug}/workflow.png 存在就展示
+    const wfPath = w.slug ? `assets/works/${w.slug}/workflow.png` : '';
+    const workflow = wfPath ? `
+      <div class="modal-sec">
+        <h3>完整工作流</h3>
+        <p class="workflow-diagram-hint">这是本片从 brief 到成片的真实生产流程图。点击可查看原图。</p>
+        <div class="workflow-diagram">
+          <a href="${esc(media(wfPath))}" target="_blank" rel="noopener" aria-label="查看完整工作流原图">
+            <img src="${esc(media(wfPath))}" alt="${esc(w.title)} 工作流" loading="lazy"
+                 onerror="this.parentElement.parentElement.style.display='none'">
+          </a>
+        </div>
+      </div>` : '';
+
     $('[data-body]', modal).innerHTML = `
       <div class="modal-head">
         <span>${esc(catLabel(w.category))}</span><i></i>
@@ -590,13 +606,15 @@
       <h2 class="display" id="modal-title">${esc(w.title)}</h2>
       <p class="modal-summary">${esc(w.summary)}</p>
       ${kv.length ? `<dl class="modal-kv">${kv.map(x => `<div><dt>${esc(x.t)}</dt><dd>${esc(x.v)}</dd></div>`).join('')}</dl>` : ''}
-      ${steps}${gallery}
+      ${steps}${gallery}${workflow}
       <div class="modal-foot">
         <span class="modal-role">${esc(w.role)}</span>
         <div class="modal-tools">${(w.tools || []).map(t => `<span>${esc(t)}</span>`).join('')}</div>
       </div>`;
 
     mVideo.src = media(w.video);
+    // 视频按作品实际比例显示（竖屏短剧不被压成 16:9 黑边）
+    mVideo.style.aspectRatio = (w.aspect === '9:16') ? '9 / 16' : '16 / 9';
     mVideo.load();
     const mt = $('[data-mtime]', modal);
     mVideo.addEventListener('loadedmetadata', () => { mt.textContent = mmss(mVideo.duration); }, { once: true });
@@ -764,37 +782,6 @@
   }
 
   /* =========================================================
-     主色预览面板（定稿后删掉这个函数和 HTML 里的挂载点）
-     ========================================================= */
-  function initAccentPicker() {
-    const mount = $('[data-mount="accent"]');
-    if (!mount) return;
-    const opts = [
-      { id: 'clay',   color: '#B4502B', label: '赭红 / 焦糖' },
-      { id: 'rose',   color: '#A6314B', label: '玫瑰莓' },
-      { id: 'forest', color: '#2F4F3A', label: '墨绿' },
-    ];
-    const url = new URL(location.href);
-    const init = url.searchParams.get('accent');
-    const cur = opts.some(o => o.id === init) ? init : 'clay';
-    document.documentElement.dataset.accent = cur;
-
-    mount.className = 'accent-picker';
-    mount.innerHTML = `<span>主色</span>` + opts.map(o => `
-      <button class="accent-swatch" style="background:${o.color}" data-accent="${o.id}"
-              aria-pressed="${o.id === cur}" aria-label="切换主色：${o.label}" title="${o.label}"></button>`).join('');
-
-    $$('.accent-swatch', mount).forEach(b => b.addEventListener('click', () => {
-      document.documentElement.dataset.accent = b.dataset.accent;
-      $$('.accent-swatch', mount).forEach(x => x.setAttribute('aria-pressed', String(x === b)));
-      const u = new URL(location.href);
-      u.searchParams.set('accent', b.dataset.accent);
-      history.replaceState(null, '', u);
-      toast('主色 · ' + b.title);
-    }));
-  }
-
-  /* =========================================================
      启动
      ========================================================= */
   function boot() {
@@ -807,7 +794,6 @@
       const fn = R[m.dataset.mount];
       if (fn) { try { fn(m); } catch (err) { console.error('渲染失败:', m.dataset.mount, err); } }
     });
-    initAccentPicker();
     initReveal();
 
     // 内容是 JS 渲染的，浏览器处理 URL 锚点时目标元素还不存在，
