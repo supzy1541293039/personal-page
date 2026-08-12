@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#f5f5f7">
+  <meta name="description" content="个人简历">
+  <title>个人简历</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body class="glass-shell">
+
+  <!-- Header -->
+  <header class="site-header" id="top">
+    <div class="container header-inner">
+      <a class="brand" href="index.html" aria-label="返回首页">
+        <span class="brand-mark">ME</span>
+        <span class="brand-word">你的名字</span>
+      </a>
+      <nav class="desktop-nav" aria-label="主导航">
+        <a href="index.html">首页</a>
+        <a href="resume.html" class="active">简历</a>
+        <a href="works.html">作品</a>
+        <a href="index.html#contact">联系</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <!-- Page Intro -->
+    <section class="hero" aria-labelledby="resume-title" style="min-height: 390px; height: auto;">
+      <div class="container hero-grid" style="padding-top: 152px; padding-bottom: 78px;">
+        <div class="hero-copy">
+          <p class="eyebrow" style="color: rgba(255,255,255,.72);">个人简历</p>
+          <h1 id="resume-title">你的名字</h1>
+          <p class="hero-description">一句话概括你的职业定位和核心优势。</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Facts / Basic Info -->
+    <section class="section-pad" style="background: var(--page);">
+      <div class="container">
+        <div style="display: grid; grid-template-columns: minmax(280px, 4fr) minmax(0, 8fr); gap: 72px; align-items: start;">
+          <!-- Left: sticky summary -->
+          <div style="position: sticky; top: 96px;">
+            <p class="eyebrow">基本信息</p>
+            <dl style="margin: 0; border-top: 1px solid var(--line);">
+              <div style="display: grid; grid-template-columns: 92px 1fr; gap: 18px; padding: 17px 0; border-bottom: 1px solid var(--line);">
+                <dt style="color: var(--text-secondary); font-size: 12px;">年龄</dt>
+                <dd style="margin: 0; font-size: 14px; font-weight: 600;">--</dd>
+              </div>
+              <div style="display: grid; grid-template-columns: 92px 1fr; gap: 18px; padding: 17px 0; border-bottom: 1px solid var(--line);">
+                <dt style="color: var(--text-secondary); font-size: 12px;">所在地</dt>
+                <dd style="margin: 0; font-size: 14px; font-weight: 600;">--</dd>
+              </div>
+              <div style="display: grid; grid-template-columns: 92px 1fr; gap: 18px; padding: 17px 0; border-bottom: 1px solid var(--line);">
+                <dt style="color: var(--text-secondary); font-size: 12px;">求职意向</dt>
+                <dd style="margin: 0; font-size: 14px; font-weight: 600;">--</dd>
+              </div>
+              <div style="display: grid; grid-template-columns: 92px 1fr; gap: 18px; padding: 17px 0; border-bottom: 1px solid var(--line);">
+                <dt style="color: var(--text-secondary); font-size: 12px;">邮箱</dt>
+                <dd style="margin: 0; font-size: 14px; font-weight: 600;">your@email.com</dd>
+              </div>
+            </dl>
+
+            <!-- Tools / Skills -->
+            <div style="margin-top: 40px;">
+              <p style="margin-bottom: 15px; color: var(--text-secondary); font-size: 13px; font-weight: 600;">工具与技能</p>
+              <div style="display: flex; flex-wrap: wrap; gap: 8px;">
+                <span style="padding: 7px 10px; border: 1px solid var(--line); border-radius: 6px; background: rgba(255,255,255,.5); color: #515154; font-size: 12px;">工具 A</span>
+                <span style="padding: 7px 10px; border: 1px solid var(--line); border-radius: 6px; background: rgba(255,255,255,.5); color: #515154; font-size: 12px;">工具 B</span>
+                <span style="padding: 7px 10px; border: 1px solid var(--line); border-radius: 6px; background: rgba(255,255,255,.5); color: #515154; font-size: 12px;">工具 C</span>
+                <!-- 继续添加你的技能标签 -->
+              </div>
+            </div>
+          </div>
+
+          <!-- Right: experience timeline -->
+          <div>
+            <p class="eyebrow">项目经历</p>
+            <h2 style="margin: 18px 0 0;">工作经历<br><em>与项目成果</em></h2>
+
+            <!-- Experience Item 1 -->
+            <div style="display: grid; grid-template-columns: 108px 1fr; gap: 30px; padding: 32px 0; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line);">
+              <div style="color: var(--text-secondary); font-size: 13px; font-weight: 600;">2024—至今</div>
+              <div>
+                <h3 style="margin-bottom: 10px; font-size: 28px;">项目名称</h3>
+                <p style="margin-bottom: 12px; color: #424245; font-size: 14px; font-weight: 600;">你的角色 / 职位</p>
+                <p style="max-width: 620px; margin: 0; color: var(--text-secondary); font-size: 16px; line-height: 1.68;">描述你在项目中的具体工作、承担的职责和取得的成果。用具体数字和事实说话。</p>
+              </div>
+            </div>
+
+            <!-- Experience Item 2 -->
+            <div style="display: grid; grid-template-columns: 108px 1fr; gap: 30px; padding: 32px 0; border-bottom: 1px solid var(--line);">
+              <div style="color: var(--text-secondary); font-size: 13px; font-weight: 600;">2023—2024</div>
+              <div>
+                <h3 style="margin-bottom: 10px; font-size: 28px;">项目名称</h3>
+                <p style="margin-bottom: 12px; color: #424245; font-size: 14px; font-weight: 600;">你的角色 / 职位</p>
+                <p style="max-width: 620px; margin: 0; color: var(--text-secondary); font-size: 16px; line-height: 1.68;">描述你在项目中的具体工作、承担的职责和取得的成果。</p>
+              </div>
+            </div>
+
+            <!-- 继续添加更多经历... -->
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <p>&copy; 2026 你的名字. All rights reserved.</p>
+      <a class="back-to-top" href="#top" aria-label="返回顶部">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m18 15-6-6-6 6"/></svg>
+      </a>
+    </div>
+  </footer>
+
+  <script>
+    const header = document.querySelector('.site-header');
+    const onScroll = () => { header.classList.toggle('is-scrolled', window.scrollY > 60); };
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+  </script>
+</body>
+</html>
