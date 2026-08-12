@@ -280,7 +280,25 @@ h2.display { font-size: clamp(30px, 3.6vw, 46px); }
   color: #fff;
 }
 .hero.hero-compact { min-height: 0; padding-bottom: 0; }
-.hero-media { position: absolute; inset: 0; z-index: -2; }
+.hero-media { position: absolute; inset: 0; z-index: -2; overflow: hidden; }
+/* 轮播 slide：叠放 + 交叉淡入 + Ken Burns 缓慢缩放
+   激活的 slide 提升 z-index 盖住旧图，避免两张半透明混叠导致画面浑浊 */
+.hero-slide {
+  position: absolute; inset: 0; z-index: 0;
+  background-size: cover; background-position: center;
+  opacity: 0;
+  transition: opacity 700ms cubic-bezier(.4, 0, .2, 1);
+}
+.hero-slide.is-active {
+  z-index: 1;
+  opacity: 1;
+  animation: kenburns 9s ease-out forwards;
+}
+@keyframes kenburns {
+  from { transform: scale(1.04); }
+  to   { transform: scale(1.14); }
+}
+/* 兼容：若 heroSlides 为空回退到单张 img/video */
 .hero-media video, .hero-media img { width: 100%; height: 100%; object-fit: cover; }
 .hero::before {
   content: ''; position: absolute; inset: 0; z-index: -1;
@@ -338,14 +356,15 @@ h2.display { font-size: clamp(30px, 3.6vw, 46px); }
   text-transform: uppercase; color: rgba(255,255,255,.6);
 }
 .hero-foot-left { display: flex; align-items: center; gap: 20px; }
-.sound-toggle {
-  display: inline-flex; align-items: center; gap: 8px;
-  padding: 8px 12px; border: 1px solid rgba(255,255,255,.3); border-radius: var(--r-xs);
-  color: rgba(255,255,255,.82);
-  font-family: var(--font-mono); font-size: 10px; letter-spacing: .12em; text-transform: uppercase;
-  transition: background var(--speed) var(--ease), border-color var(--speed) var(--ease);
+/* 轮播指示点 */
+.hero-dots { display: inline-flex; align-items: center; gap: 7px; }
+.hero-dot {
+  width: 18px; height: 3px; border-radius: 2px;
+  background: rgba(255,255,255,.3);
+  transition: background var(--speed) var(--ease), width var(--speed) var(--ease);
 }
-.sound-toggle:hover { background: rgba(255,255,255,.12); border-color: rgba(255,255,255,.6); }
+.hero-dot:hover { background: rgba(255,255,255,.6); }
+.hero-dot.is-active { background: var(--gold); width: 30px; }
 .scroll-cue { display: inline-flex; align-items: center; gap: 10px; }
 .scroll-cue i {
   display: block; width: 1px; height: 30px;
@@ -471,6 +490,22 @@ h2.display { font-size: clamp(30px, 3.6vw, 46px); }
   column-count: 3;
   column-gap: 22px;
 }
+/* 首页精选布局：3 列 grid（不走瀑布流，需要精确控制）
+   ┌───────┬───────┬───────┐
+   │       │       │ 16:9  │  ← 广告
+   │ 9:16  │ 9:16  ├───────┤
+   │ 短剧  │ 短剧  │ 16:9  │  ← 短片
+   └───────┴───────┴───────┘
+   两个横屏叠起来接近一个竖屏高度，底部自然收齐 */
+.works-grid.featured-layout {
+  column-count: initial;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 26px 22px;
+  align-items: start;
+}
+.works-grid.featured-layout .card { margin-bottom: 0; }
+.works-grid.featured-layout .card[data-aspect="9:16"] { grid-row: span 2; }
 
 .card {
   position: relative;
@@ -871,6 +906,8 @@ h2.display { font-size: clamp(30px, 3.6vw, 46px); }
   .track { grid-template-columns: repeat(3, minmax(0, 1fr)); }
   .track-step { border-top: 1px solid var(--rule-soft); }
   .works-grid { column-count: 2; }
+  .works-grid.featured-layout { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .works-grid.featured-layout .card[data-aspect="9:16"] { grid-row: span 1; }
   .stats-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .stat:nth-child(3) { border-left: 0; padding-left: 0; }
   .stat:nth-child(n+3) { border-top: 1px solid var(--rule); }
@@ -892,6 +929,7 @@ h2.display { font-size: clamp(30px, 3.6vw, 46px); }
   .hero-foot { padding-bottom: 22px; }
   .hero-foot .scroll-cue { display: none; }
   .works-grid { column-count: 1; }
+  .works-grid.featured-layout { grid-template-columns: 1fr; }
   .card h3 { font-size: 24px; }
   .track { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .track-step { min-height: 0; padding-bottom: 22px; }

@@ -140,12 +140,15 @@
     }
 
     const p = S.profile;
+    const slides = (p.heroSlides || []).length
+      ? p.heroSlides
+      : ['assets/images/hero-poster.jpg'];
+
     mount.innerHTML = `
       <div class="hero-media" aria-hidden="true">
-        <video id="hero-video" autoplay muted loop playsinline preload="auto"
-               poster="${esc(media('assets/images/hero-poster.jpg'))}">
-          <source src="${esc(media('assets/videos/hero.mp4'))}" type="video/mp4">
-        </video>
+        ${slides.map((s, i) => `
+          <div class="hero-slide${i === 0 ? ' is-active' : ''}"
+               style="background-image:url('${esc(media(s))}')"></div>`).join('')}
       </div>
       ${frame}
       <div class="container hero-body">
@@ -162,26 +165,38 @@
       <div class="container hero-foot">
         <span class="hero-foot-left">
           <span>REEL ${new Date().getFullYear()}</span>
-          <button class="sound-toggle" id="sound-toggle" aria-pressed="false">
-            ${ICON.sound}<span>开声音</span>
-          </button>
+          <span class="hero-dots" role="tablist" aria-label="首屏轮播">
+            ${slides.map((_, i) => `
+              <button class="hero-dot${i === 0 ? ' is-active' : ''}" data-slide="${i}"
+                      aria-label="切换到第 ${i + 1} 张"></button>`).join('')}
+          </span>
         </span>
         <span class="scroll-cue">向下<i aria-hidden="true"></i></span>
       </div>`;
 
-    // 首屏声音开关：浏览器强制静音自动播，给一个主动开启的入口
-    const hv = $('#hero-video', mount);
-    const st = $('#sound-toggle', mount);
-    if (hv && st) {
-      const sync = () => {
-        const on = !hv.muted;
-        st.setAttribute('aria-pressed', String(on));
-        $('span', st).textContent = on ? '关声音' : '开声音';
-        st.querySelectorAll('.mute').forEach(n => n.style.display = on ? 'none' : '');
-        st.querySelectorAll('.wave').forEach(n => n.style.display = on ? '' : 'none');
+    // 封面轮播：交叉淡入淡出 + Ken Burns 缓慢缩放
+    const slideEls = $$('.hero-slide', mount);
+    const dotEls = $$('.hero-dot', mount);
+    if (slideEls.length > 1) {
+      let cur = 0, timer = null;
+      const show = (n) => {
+        cur = (n + slideEls.length) % slideEls.length;
+        slideEls.forEach((el, i) => el.classList.toggle('is-active', i === cur));
+        dotEls.forEach((el, i) => el.classList.toggle('is-active', i === cur));
       };
-      st.addEventListener('click', () => { hv.muted = !hv.muted; if (!hv.muted) hv.play().catch(() => {}); sync(); });
-      sync();
+      const start = () => {
+        if (reduceMotion) return;               // 动效敏感用户只看第一张
+        clearInterval(timer);
+        timer = setInterval(() => show(cur + 1), 5000);
+      };
+      dotEls.forEach(d => d.addEventListener('click', () => {
+        show(parseInt(d.dataset.slide, 10)); start();
+      }));
+      // 页面切到后台时暂停，省电
+      document.addEventListener('visibilitychange', () => {
+        document.hidden ? clearInterval(timer) : start();
+      });
+      start();
     }
   }
 
@@ -240,6 +255,9 @@
   function cardHTML(w, idx) {
     const featured = !!w.featured;
     const aspect = w.aspect || '16:9';
+    // 封面：优先用显式 poster，否则按 slug 自动推导 assets/works/{slug}/cover.jpg
+    // 文件不存在时浏览器会自然回退显示视频首帧，不会报错
+    const poster = w.poster || (w.slug ? `assets/works/${w.slug}/cover.jpg` : '');
     return `
       <article class="card reveal${featured ? ' is-featured' : ''}" style="--d:${idx * 70}ms"
                role="button" tabindex="0" data-id="${esc(w.id)}" data-cat="${esc(w.category)}"
@@ -247,7 +265,7 @@
                aria-label="${esc(w.title)}，打开作品详情">
         <div class="card-visual">
           <span class="card-badge${featured ? ' is-featured' : ''}">${featured ? '代表作 · ' : ''}${esc(catLabel(w.category))}</span>
-          <video muted loop playsinline preload="metadata"${w.poster ? ` poster="${esc(media(w.poster))}"` : ''}>
+          <video muted loop playsinline preload="metadata"${poster ? ` poster="${esc(media(poster))}"` : ''}>
             <source src="${esc(media(w.video))}" type="video/mp4">
           </video>
           <span class="card-time" data-time>${w.duration ? esc(w.duration) : '--:--'}</span>
@@ -265,10 +283,16 @@
   function renderWorks(mount) {
     const limit = parseInt(mount.dataset.limit || '0', 10);
     const withFilters = mount.dataset.filters === 'true';
+    const pick = (mount.dataset.pick || '').split(',').map(s => s.trim()).filter(Boolean);
     let list = (S.works || []).slice();
-    // 代表作置顶
-    list.sort((a, b) => (b.featured ? 1 : 0) - (a.featured ? 1 : 0));
-    if (limit > 0) list = list.slice(0, limit);
+
+    if (pick.length) {
+      // 精确挑选并保持 data-pick 里的顺序（首页凑方块用）
+      list = pick.map(id => list.find(w => w.id === id)).filter(Boolean);
+    } else {
+      list.sort((a, b) => (b.featured ? 1 : 0) - (a.featured ? 1 : 0));
+      if (limit > 0) list = list.slice(0, limit);
+    }
 
     const head = mount.dataset.heading === 'false' ? '' : `
       <div class="sec-head reveal">
@@ -292,8 +316,9 @@
         <a class="link" href="works.html">进入作品页${ICON.diag}</a>
       </div>`;
 
+    const layout = mount.dataset.layout === 'featured' ? ' featured-layout' : '';
     mount.innerHTML = `<div class="container">${head}${filters}
-      <div class="works-grid">${list.map(cardHTML).join('')}</div>${foot}</div>`;
+      <div class="works-grid${layout}">${list.map(cardHTML).join('')}</div>${foot}</div>`;
 
     initCards(mount, list);
     if (withFilters) initFilters(mount, list);

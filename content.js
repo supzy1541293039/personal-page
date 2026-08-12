@@ -12,22 +12,25 @@ window.SITE = {
 
   /* ---------- 0. 媒体资源根（视频 / 封面 / 工作流图） ---------
      决定视频和封面从哪里加载。字体、图标等小文件不受影响，
-     始终跟着网页走（GitHub Pages），无需上传 COS。
+     始终跟着网页走（GitHub Pages），无需上传 OSS。
 
      两种用法：
      A. 本地 / GitHub Pages 自带资源（默认）
         assetBase: ''
         下面各 video / cover / workflow 字段保持相对路径即可。
 
-     B. 视频放腾讯云 COS（推荐用于大视频）
-        assetBase: 'https://你的桶名-1234567890.cos.ap-guangzhou.myqcloud.com'
+     B. 视频放阿里云 OSS（推荐用于大视频）
+        assetBase: 'https://supzy-portfolio-assets.oss-cn-hangzhou.aliyuncs.com'
         —— 末尾不要加斜杠。
         —— 上传时保持 assets/ 目录结构（assets/videos/、assets/works/{slug}/、assets/images/），
            代码会自动拼成 桶域名 + / + 相对路径。
 
      任何字段如果直接写完整 http(s) 链接，会原样使用、不受 assetBase 影响。
+     注：OSS 默认域名会返回 Content-Disposition: attachment，<video> 标签
+     仍能播放（浏览器忽略该头直接拉流），但右键保存会弹下载框。
+     后续可绑自定义域名消除该行为（需 ICP 备案）。
   ------------------------------------------------------------ */
-  assetBase: '',
+  assetBase: 'https://supzy-portfolio-assets.oss-cn-hangzhou.aliyuncs.com',
 
   /* ---------- 1. 身份与定位 ---------------------------------- */
   profile: {
@@ -43,6 +46,17 @@ window.SITE = {
     positioning: 'AIGC 视频创作 · 广告 / 短剧',
     keywords: ['广告片', '竖屏短剧', 'AI 分镜', '人物一致性', '成片调色'],
     availability: '开放机会 · 可即时到岗',
+    // 首屏轮播：作品封面横屏版，缓慢缩放 + 交叉淡入淡出自动播放。
+    // 纯图片无视频，合计约 700KB，加载很快。改顺序或增减直接编辑这个数组。
+    heroSlides: [
+      'assets/images/hero/01-changye.jpg',       // 古装权谋
+      'assets/images/hero/04-zero-echo.jpg',     // 赛博科幻
+      'assets/images/hero/06-ad-chocolate.jpg',  // 德芙广告 KV
+      'assets/images/hero/02-qingqing.jpg',      // 都市言情
+      'assets/images/hero/05-you-are-great.jpg', // 家庭暖光
+      'assets/images/hero/07-ad-perfume.jpg',    // 香水广告 KV
+      'assets/images/hero/03-stranger.jpg',      // 都市悬疑
+    ],
   },
 
   /* ---------- 2. 数据条 ------------------------------------- */
