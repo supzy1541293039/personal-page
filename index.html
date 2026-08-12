@@ -1,457 +1,51 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="zh-CN" data-accent="clay">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <meta name="theme-color" content="#f5f5f7">
-  <meta name="description" content="个人作品集网站模板">
-  <title>个人作品集</title>
+  <meta name="theme-color" content="#F8F5F0">
+  <!-- TODO: 换成你的真实姓名和定位，这两行影响搜索结果和分享卡片 -->
+  <title>你的名字 · AIGC 视频创作（广告 / 短剧）</title>
+  <meta name="description" content="AIGC 视频创作者作品集。用 AI 生成结合传统剪辑调色，独立完成广告片与短剧的脚本、分镜、镜头生成到成片交付。">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%2314110F'/%3E%3Crect x='7' y='10' width='18' height='12' rx='1.5' fill='none' stroke='%23B4502B' stroke-width='2'/%3E%3Crect x='4' y='13' width='2' height='6' fill='%23B4502B'/%3E%3Crect x='26' y='13' width='2' height='6' fill='%23B4502B'/%3E%3C/svg%3E">
   <link rel="stylesheet" href="styles.css">
 </head>
-<body class="glass-shell">
+<body data-page="home">
 
-  <!-- Header -->
   <header class="site-header" id="top">
-    <div class="container header-inner">
-      <a class="brand" href="#top" aria-label="返回首页">
-        <span class="brand-mark">ME</span>
-        <span class="brand-word">你的名字</span>
-      </a>
-      <nav class="desktop-nav" aria-label="主导航">
-        <a href="index.html" class="active">首页</a>
-        <a href="resume.html">简历</a>
-        <a href="works.html">作品</a>
-        <a href="#contact">联系</a>
-      </nav>
-    </div>
+    <div data-mount="header" data-light="true"></div>
   </header>
 
   <main>
-    <!-- Hero -->
-    <section class="hero" aria-labelledby="hero-title">
-      <!-- Hero 背景视频：把 mp4 放到 assets/videos/hero.mp4，没有视频时回退到渐变背景 -->
-      <video autoplay muted loop playsinline style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: -2;" poster="assets/images/hero-poster.jpg">
-        <source src="assets/videos/hero.mp4" type="video/mp4">
-      </video>
-      <div class="container hero-grid">
-        <div class="hero-copy">
-          <p class="hero-identity">
-            <strong>你的身份 / 职位标签</strong>
-            <span>个人作品集 · 2026</span>
-          </p>
-          <h1 id="hero-title">你的名字</h1>
-          <p class="hero-description">这里写一段自我介绍，描述你的专业方向、核心能力和项目经验。访客打开页面第一眼看到的就是这段话，所以写得简洁有力。</p>
-          <div class="hero-actions">
-            <a class="button button-blue" href="works.html">
-              查看作品
-              <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
-            </a>
-            <a class="text-link" href="resume.html">
-              在线浏览个人简历
-              <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 7h10v10"/><path d="M7 17 17 7"/></svg>
-            </a>
-          </div>
-          <p class="hero-note">标签一 · 标签二 · 标签三</p>
-        </div>
-        <aside class="hero-signal" aria-label="项目成果">
-          <p class="hero-signal-eyebrow">我的项目成果</p>
-          <strong class="hero-signal-value">TOP 1</strong>
-          <p class="hero-signal-label">某项目 / 某榜单</p>
-          <p class="hero-signal-note">简短描述你在项目中的角色和贡献</p>
-          <a class="hero-signal-link" href="works.html">
-            查看项目证据
-            <svg class="icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 7h10v10"/><path d="M7 17 17 7"/></svg>
-          </a>
-        </aside>
-      </div>
-      <div class="container hero-bottomline">
-        <span class="scroll-label">
-          <svg class="icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14"/><path d="m19 12-7 7-7-7"/></svg>
-          向下浏览
-        </span>
-      </div>
-    </section>
+    <section class="hero" data-mount="hero" data-variant="home" aria-label="首屏"></section>
 
-    <!-- Proof Strip -->
-    <section class="proof-strip" aria-label="个人成果">
-      <div class="container proof-grid">
-        <div class="stat">
-          <span class="stat-value">10+</span>
-          <span class="stat-label">已完成项目</span>
-        </div>
-        <div class="stat">
-          <span class="stat-value">3 年</span>
-          <span class="stat-label">相关经验</span>
-        </div>
-        <div class="stat">
-          <span class="stat-value">独立交付</span>
-          <span class="stat-label">从方案到落地</span>
-        </div>
+    <noscript>
+      <div class="container" style="padding:60px 0">
+        <h1 class="display">你的名字 · AIGC 视频创作</h1>
+        <p class="lede" style="margin-top:16px">本站的作品数据需要 JavaScript 才能加载。请开启 JavaScript，或直接邮件联系：your@email.com</p>
       </div>
-    </section>
+    </noscript>
 
-    <!-- Statement / About -->
-    <section class="statement section-pad" id="about" aria-labelledby="about-title">
-      <div class="container statement-grid">
-        <div class="statement-lead">
-          <p class="eyebrow">核心价值</p>
-          <h2 id="about-title">我的优势，是把事情做到位。</h2>
-        </div>
-        <div class="statement-main">
-          <p class="statement-body">这里写你的核心能力描述。说明你擅长什么、怎么工作、关注什么。让读者理解你的独特价值，而不只是技能清单。</p>
-          <p class="statement-quote">我不只做单个环节，我会对最终结果负责。</p>
-          <p class="statement-email"><span>邮箱</span> <a href="mailto:your@email.com">your@email.com</a></p>
-        </div>
-      </div>
-    </section>
+    <section class="stats" data-mount="stats" aria-label="关键数据"></section>
 
-    <!-- Works -->
-    <section class="editing-showcase section-pad" id="works" aria-labelledby="works-title">
-      <div class="container section-heading">
-        <div>
-          <p class="eyebrow">代表作与精选作品 / 01—03</p>
-          <h2 id="works-title">先看作品，<br><em>再判断能力。</em></h2>
-        </div>
-        <p class="section-aside">精选代表性作品，展示你在不同项目中的实际产出和判断力。</p>
-      </div>
-      <div class="container editing-grid">
-        <article class="editing-card" tabindex="0" data-video="assets/videos/work-01.mp4">
-          <div class="editing-card-visual">
-            <!-- 有封面图就放 assets/images/work-01-cover.jpg，没有就显示视频首帧 -->
-            <video muted loop playsinline preload="metadata" style="width:100%;height:100%;object-fit:cover;">
-              <source src="assets/videos/work-01.mp4" type="video/mp4">
-            </video>
-          </div>
-          <div class="editing-card-info">
-            <div class="editing-card-meta"><span>作品 01</span><span>01:00</span></div>
-            <h3>作品名称</h3>
-            <p>简短描述这个视频作品，展示你做了什么、达到了什么效果。</p>
-          </div>
-        </article>
-        <article class="editing-card" tabindex="0" data-video="assets/videos/work-02.mp4">
-          <div class="editing-card-visual">
-            <video muted loop playsinline preload="metadata" style="width:100%;height:100%;object-fit:cover;">
-              <source src="assets/videos/work-02.mp4" type="video/mp4">
-            </video>
-          </div>
-          <div class="editing-card-info">
-            <div class="editing-card-meta"><span>作品 02</span><span>项目案例</span></div>
-            <h3>作品名称</h3>
-            <p>简短描述这个视频作品，展示你做了什么、达到了什么效果。</p>
-          </div>
-        </article>
-        <article class="editing-card" tabindex="0" data-video="assets/videos/work-03.mp4">
-          <div class="editing-card-visual">
-            <video muted loop playsinline preload="metadata" style="width:100%;height:100%;object-fit:cover;">
-              <source src="assets/videos/work-03.mp4" type="video/mp4">
-            </video>
-          </div>
-          <div class="editing-card-info">
-            <div class="editing-card-meta"><span>作品 03</span><span>00:30</span></div>
-            <h3>作品名称</h3>
-            <p>简短描述这个视频作品，展示你做了什么、达到了什么效果。</p>
-          </div>
-        </article>
-      </div>
-      <div style="display: flex; align-items: center; justify-content: space-between; gap: 32px; margin-top: 44px; padding-top: 24px; border-top: 1px solid var(--line);">
-        <p style="margin: 0; color: var(--text-secondary);">更多作品和制作过程。</p>
-        <div style="display: flex; flex-wrap: wrap; gap: 28px;">
-          <a class="text-link" href="works.html">查看全部作品 <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 7h10v10"/><path d="M7 17 17 7"/></svg></a>
-          <a class="text-link" href="resume.html">打开简历 <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 7h10v10"/><path d="M7 17 17 7"/></svg></a>
-        </div>
-      </div>
-    </section>
-    <section class="strengths section-pad" id="strengths" aria-labelledby="strengths-title">
-      <div class="container">
-        <div class="section-heading">
-          <div>
-            <p class="eyebrow">个人优势</p>
-            <h2 id="strengths-title">我的优势，<em>不止是会用工具。</em></h2>
-          </div>
-          <p class="section-aside">说明你能把多个环节串起来，落到同一个结果上。</p>
-        </div>
-        <div class="strengths-grid">
-          <div class="strength">
-            <span class="strength-number">01</span>
-            <h3>能独立交付</h3>
-            <p>接到任务后，可以从拆解推进到最终交付，减少中间交接和反复沟通。</p>
-          </div>
-          <div class="strength">
-            <span class="strength-number">02</span>
-            <h3>有质量判断</h3>
-            <p>不只关注单个细节，也会判断整体协调、节奏和最终效果，让每个部分服务于完整作品。</p>
-          </div>
-          <div class="strength">
-            <span class="strength-number">03</span>
-            <h3>有上线经验</h3>
-            <p>参与过多个实际上线项目，理解从制作到交付的真实要求，并有可验证的项目成果。</p>
-          </div>
-        </div>
-        <div style="display: flex; align-items: center; justify-content: space-between; gap: 32px; margin-top: 44px;">
-          <p style="margin: 0; color: var(--text-secondary);">需要更完整的项目经历与工具清单？</p>
-          <div style="display: flex; flex-wrap: wrap; gap: 28px;">
-            <a class="text-link" href="resume.html">打开简历 <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 7h10v10"/><path d="M7 17 17 7"/></svg></a>
-            <a class="text-link" href="#contact">联系我 <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 7h10v10"/><path d="M7 17 17 7"/></svg></a>
-          </div>
-        </div>
-      </div>
-    </section>
-    <section class="contact section-pad" id="contact" aria-labelledby="contact-title">
-      <div class="container contact-grid">
-        <div>
-          <p class="eyebrow">联系</p>
-          <h2 id="contact-title">欢迎联系我，<br><em>聊聊新机会。</em></h2>
-        </div>
-        <div class="contact-details">
-          <p>正在寻找新的机会。欢迎通过手机、微信或邮箱联系我。</p>
-          <div class="contact-methods">
-            <div class="contact-method">
-              <span class="contact-method-label">手机</span>
-              <span class="contact-method-value">138-0000-0000</span>
-              <button class="copy-btn" data-copy="13800000000" aria-label="复制手机号">
-                <svg class="icon-md" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>
-              </button>
-            </div>
-            <div class="contact-method">
-              <span class="contact-method-label">微信</span>
-              <span class="contact-method-value">your_wechat</span>
-              <button class="copy-btn" data-copy="your_wechat" aria-label="复制微信号">
-                <svg class="icon-md" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>
-              </button>
-            </div>
-            <div class="contact-method">
-              <span class="contact-method-label">邮箱</span>
-              <span class="contact-method-value">your@email.com</span>
-              <button class="copy-btn" data-copy="your@email.com" aria-label="复制邮箱">
-                <svg class="icon-md" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
+    <section class="section" id="about" data-mount="statement" aria-label="我怎么工作"></section>
+
+    <section class="section workflow" id="workflow" data-mount="workflow" aria-label="生产流程"></section>
+
+    <!-- 首页只放代表作 + 3 支，全部作品在 works.html -->
+    <section class="section" id="works" data-mount="works"
+             data-limit="4" data-filters="false" data-heading="true" data-footer="true"
+             aria-label="精选作品"></section>
+
+    <section class="section contact on-dark" id="contact" data-mount="contact" aria-label="联系方式"></section>
   </main>
 
-  <!-- Footer -->
-  <footer class="site-footer">
-    <div class="container footer-inner">
-      <p>&copy; 2026 你的名字. All rights reserved.</p>
-      <a class="back-to-top" href="#top" aria-label="返回顶部">
-        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m18 15-6-6-6 6"/></svg>
-      </a>
-    </div>
-  </footer>
+  <footer class="site-footer" data-mount="footer"></footer>
 
-  <!-- Toast -->
-  <div class="toast" id="toast"></div>
+  <!-- 主色预览：定稿后删掉这一行 -->
+  <div data-mount="accent"></div>
 
-  <!-- Video Detail Modal -->
-  <div id="video-modal" style="display: none; position: fixed; inset: 0; z-index: 100; background: rgba(0,0,0,.88); backdrop-filter: blur(18px); align-items: center; justify-content: center;">
-    <div id="modal-shell" style="position: relative; width: min(940px, calc(100% - 32px)); max-height: min(900px, calc(100vh - 32px)); border-radius: 14px; overflow: hidden; background: #fff; box-shadow: 0 26px 80px rgba(0,0,0,.4);">
-      <!-- Close button -->
-      <button id="video-close" style="position: absolute; top: 16px; right: 16px; z-index: 10; width: 44px; height: 44px; border: 1px solid rgba(255,255,255,.7); border-radius: 50%; background: rgba(255,255,255,.8); color: #1d1d1f; cursor: pointer; font-size: 20px; display: grid; place-items: center; transition: background 0.2s;">&times;</button>
-
-      <!-- Scrollable content -->
-      <div id="modal-scroll" style="overflow-y: auto; max-height: min(900px, calc(100vh - 32px)); -webkit-overflow-scrolling: touch;">
-        <!-- Video player -->
-        <div style="background: #000;">
-          <video id="video-player" controls style="width: 100%; aspect-ratio: 16/9; object-fit: contain; background: #000; display: block;">
-            <source src="" type="video/mp4">
-            你的浏览器不支持视频播放。
-          </video>
-        </div>
-
-        <!-- Content body -->
-        <div style="padding: 38px 40px 42px;">
-          <!-- Meta row -->
-          <div id="modal-meta" style="display: flex; justify-content: space-between; gap: 16px; margin-bottom: 14px; color: #6e6e73; font-size: 13px;">
-            <span id="modal-category">代表作 · 视频剪辑</span>
-            <span id="modal-duration">01:00</span>
-          </div>
-
-          <!-- Title -->
-          <h2 id="modal-title" style="font-size: 42px; font-weight: 600; line-height: 1.08; margin: 0 0 16px; color: #1d1d1f;">作品名称</h2>
-
-          <!-- Description -->
-          <p id="modal-desc" style="max-width: 680px; margin: 0 0 34px; color: #6e6e73; font-size: 17px; line-height: 1.68;">作品描述内容。</p>
-
-          <!-- Making process section -->
-          <div id="modal-process" style="margin: 42px 0 36px;">
-            <p style="margin: 0 0 12px; color: #6e6e73; font-size: 13px; font-weight: 600;">制作过程</p>
-            <h3 style="font-size: 28px; font-weight: 600; margin: 0 0 20px; color: #1d1d1f;">制作过程</h3>
-            <div id="modal-gallery" style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px;">
-              <!-- Gallery images injected by JS -->
-            </div>
-          </div>
-
-          <!-- Bottom tags row -->
-          <div style="display: flex; align-items: flex-start; justify-content: space-between; gap: 20px; padding-top: 22px; border-top: 1px solid #d2d2d7; color: #6e6e73; font-size: 12px; font-weight: 600;">
-            <span id="modal-skills">视频剪辑 · 镜头节奏 · 成片输出</span>
-            <div id="modal-tags" style="display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 7px;">
-              <!-- Tags injected by JS -->
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <script>
-    // Header scroll effect
-    const header = document.querySelector('.site-header');
-    const onScroll = () => { header.classList.toggle('is-scrolled', window.scrollY > 60); };
-    window.addEventListener('scroll', onScroll, { passive: true });
-    onScroll();
-
-    // Copy to clipboard
-    const toast = document.getElementById('toast');
-    let toastTimer;
-    document.querySelectorAll('.copy-btn').forEach(btn => {
-      btn.addEventListener('click', () => {
-        const text = btn.dataset.copy;
-        navigator.clipboard.writeText(text).then(() => {
-          toast.textContent = '已复制: ' + text;
-          toast.classList.add('is-visible');
-          clearTimeout(toastTimer);
-          toastTimer = setTimeout(() => toast.classList.remove('is-visible'), 2000);
-        });
-      });
-    });
-
-    // ===== 作品数据 =====
-    // 每个作品的详细信息，后续替换成你的真实内容
-    const worksData = {
-      'work-01': {
-        title: '仿实拍风格短片',
-        category: '代表作 · 视频剪辑',
-        duration: '01:00',
-        desc: '这支仿实拍风格短片作为我的代表作，围绕人物关系和场景氛围组织画面，通过镜头节奏、情绪衔接与成品质感完成一段完整的视频表达。',
-        skills: '视频剪辑 · 镜头节奏 · 成片输出',
-        tags: ['代表作', '仿实拍', '视频剪辑'],
-        gallery: [
-          { src: 'assets/images/hero-poster.jpg', caption: '画布记录：从角色资产到成片镜头' }
-        ]
-      },
-      'work-02': {
-        title: '作品名称 02',
-        category: '项目案例',
-        duration: '02:30',
-        desc: '作品描述内容，展示你在项目中的具体工作和成果。',
-        skills: '技能标签',
-        tags: ['标签1', '标签2'],
-        gallery: []
-      },
-      'work-03': {
-        title: '作品名称 03',
-        category: '类别标签',
-        duration: '00:30',
-        desc: '作品描述内容。',
-        skills: '技能标签',
-        tags: ['标签1'],
-        gallery: []
-      },
-      'work-04': {
-        title: '作品名称 04',
-        category: '类别标签',
-        duration: '01:30',
-        desc: '作品描述内容。',
-        skills: '技能标签',
-        tags: ['标签1'],
-        gallery: []
-      },
-      'work-05': {
-        title: '作品名称 05',
-        category: '类别标签',
-        duration: '00:45',
-        desc: '作品描述内容。',
-        skills: '技能标签',
-        tags: ['标签1'],
-        gallery: []
-      },
-      'work-06': {
-        title: '作品名称 06',
-        category: '类别标签',
-        duration: '02:00',
-        desc: '作品描述内容。',
-        skills: '技能标签',
-        tags: ['标签1'],
-        gallery: []
-      }
-    };
-
-    // ===== 视频弹窗 =====
-    const modal = document.getElementById('video-modal');
-    const modalScroll = document.getElementById('modal-scroll');
-    const player = document.getElementById('video-player');
-    const closeBtn = document.getElementById('video-close');
-
-    function openModal(workId) {
-      const data = worksData[workId];
-      if (!data) return;
-
-      // 填充内容
-      player.querySelector('source').src = 'assets/videos/' + workId + '.mp4';
-      player.load();
-      document.getElementById('modal-title').textContent = data.title;
-      document.getElementById('modal-category').textContent = data.category;
-      document.getElementById('modal-duration').textContent = data.duration;
-      document.getElementById('modal-desc').textContent = data.desc;
-      document.getElementById('modal-skills').textContent = data.skills;
-
-      // 标签
-      const tagsEl = document.getElementById('modal-tags');
-      tagsEl.innerHTML = data.tags.map(t => '<span style="padding:6px 9px;border:1px solid #d2d2d7;border-radius:6px;font-size:12px;">' + t + '</span>').join('');
-
-      // 制作过程画廊
-      const galleryEl = document.getElementById('modal-gallery');
-      if (data.gallery && data.gallery.length > 0) {
-        galleryEl.innerHTML = data.gallery.map(g =>
-          '<figure style="margin:0;overflow:hidden;border:1px solid #d2d2d7;border-radius:8px;background:#fbfbfd;">' +
-          '<img src="' + g.src + '" alt="' + g.caption + '" style="width:100%;height:auto;display:block;">' +
-          '<figcaption style="padding:12px 14px 14px;color:#6e6e73;font-size:12px;font-weight:600;">' + g.caption + '</figcaption>' +
-          '</figure>'
-        ).join('');
-        document.getElementById('modal-process').style.display = 'block';
-      } else {
-        document.getElementById('modal-process').style.display = 'none';
-      }
-
-      modal.style.display = 'flex';
-      modalScroll.scrollTop = 0;
-      setTimeout(() => player.play().catch(() => {}), 300);
-    }
-
-    function closeModal() {
-      modal.style.display = 'none';
-      player.pause();
-      player.currentTime = 0;
-    }
-
-    // 卡片 hover 预览 + 点击打开详情
-    document.querySelectorAll('.editing-card[data-video]').forEach(card => {
-      const preview = card.querySelector('video');
-      if (!preview) return;
-      card.style.cursor = 'pointer';
-
-      card.addEventListener('mouseenter', () => {
-        preview.currentTime = 0;
-        preview.play().catch(() => {});
-      });
-      card.addEventListener('mouseleave', () => {
-        preview.pause();
-        preview.currentTime = 0;
-      });
-
-      card.addEventListener('click', () => {
-        const videoFile = card.dataset.video; // e.g. "assets/videos/work-01.mp4"
-        const workId = videoFile.replace('assets/videos/', '').replace('.mp4', '');
-        openModal(workId);
-      });
-    });
-
-    closeBtn.addEventListener('click', closeModal);
-    modal.addEventListener('click', (e) => { if (e.target === modal) closeModal(); });
-    document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && modal.style.display === 'flex') closeModal(); });
-  </script>
+  <script src="content.js?v=2"></script>
+  <script src="app.js?v=2"></script>
 </body>
 </html>
