@@ -1,0 +1,595 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#f5f5f7">
+  <meta name="description" content="个人作品集网站模板">
+  <title>个人作品集</title>
+  <style>
+    :root {
+      --page: #f5f5f7;
+      --surface: #ffffff;
+      --surface-subtle: #fbfbfd;
+      --text: #1d1d1f;
+      --text-secondary: #6e6e73;
+      --text-tertiary: #86868b;
+      --line: #d2d2d7;
+      --line-soft: #e8e8ed;
+      --accent: #0071e3;
+      --accent-hover: #0077ed;
+      --dark: #161617;
+      --dark-secondary: #a1a1a6;
+      --container: 1160px;
+      --gutter: 64px;
+      --section-space: 112px;
+      --radius: 8px;
+      --ease: cubic-bezier(.25, .1, .25, 1);
+      --speed: 220ms;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--page);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "PingFang SC", "Helvetica Neue", "Noto Sans SC", "Microsoft YaHei", sans-serif;
+      font-size: 16px;
+      line-height: 1.55;
+      -webkit-font-smoothing: antialiased;
+    }
+    img { display: block; max-width: 100%; }
+    a { color: inherit; text-decoration: none; }
+    button { font: inherit; cursor: pointer; }
+    .container {
+      width: min(calc(100% - var(--gutter)), var(--container));
+      margin-inline: auto;
+    }
+    .section-pad { padding-block: var(--section-space); }
+
+    /* ===== Header ===== */
+    .site-header {
+      position: sticky; top: 0; z-index: 40;
+      height: 76px;
+      pointer-events: none;
+    }
+    .header-inner {
+      min-height: 56px;
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 24px; padding: 0 8px 0 14px;
+      border: 1px solid rgba(255,255,255,.72);
+      border-radius: 18px;
+      background: rgba(255,255,255,.72);
+      box-shadow: 0 8px 28px rgba(0,0,0,.08), inset 0 1px 0 rgba(255,255,255,.9);
+      backdrop-filter: blur(24px) saturate(160%);
+      -webkit-backdrop-filter: blur(24px) saturate(160%);
+      pointer-events: auto;
+      transition: background var(--speed) var(--ease), border-color var(--speed) var(--ease);
+    }
+    .site-header.is-scrolled .header-inner {
+      border-color: rgba(210,210,215,.72);
+      background: rgba(255,255,255,.88);
+      box-shadow: 0 8px 28px rgba(0,0,0,.1), inset 0 1px 0 rgba(255,255,255,.96);
+    }
+    .glass-shell .site-header:not(.is-scrolled) .header-inner {
+      border-color: rgba(255,255,255,.36);
+      background: rgba(22,22,23,.36);
+      box-shadow: 0 8px 30px rgba(0,0,0,.18), inset 0 1px 0 rgba(255,255,255,.28);
+    }
+    .brand {
+      min-height: 44px; display: inline-flex; align-items: center; gap: 10px;
+      font-size: 13px; font-weight: 600;
+    }
+    .brand-mark {
+      width: 30px; height: 30px; display: grid; place-items: center;
+      border-radius: 50%; background: var(--text); color: #fff;
+      font-size: 9px; font-weight: 700;
+    }
+    .glass-shell .site-header:not(.is-scrolled) .brand-mark {
+      background: #fff; color: var(--text);
+    }
+    .desktop-nav {
+      display: flex; align-items: center; gap: 2px;
+      color: var(--text-secondary); font-size: 13px;
+    }
+    .desktop-nav a {
+      min-height: 44px; display: inline-flex; align-items: center;
+      padding: 0 14px; border-radius: 14px;
+      transition: color var(--speed) var(--ease), background var(--speed) var(--ease);
+    }
+    .desktop-nav a:hover { background: rgba(29,29,31,.06); color: var(--text); }
+    .glass-shell .site-header:not(.is-scrolled) .desktop-nav { color: rgba(255,255,255,.76); }
+    .glass-shell .site-header:not(.is-scrolled) .desktop-nav a:hover {
+      background: rgba(255,255,255,.14); color: #fff;
+    }
+
+    /* ===== Hero ===== */
+    .hero {
+      position: relative; isolation: isolate;
+      height: min(640px, calc(100svh - 112px)); min-height: 560px;
+      margin-top: -76px; overflow: hidden;
+      background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+      color: #fff;
+    }
+    .hero::before {
+      position: absolute; z-index: -1; inset: 0;
+      content: "";
+      background: rgba(8,9,11,.38);
+    }
+    .hero-grid {
+      height: 100%;
+      display: grid;
+      grid-template-columns: minmax(0, 7fr) minmax(250px, 3fr);
+      align-items: flex-end;
+      gap: 56px;
+      padding-top: 116px; padding-bottom: 68px;
+    }
+    .hero-identity {
+      display: flex; flex-wrap: wrap; align-items: baseline;
+      gap: 8px 14px; margin: 0 0 18px;
+    }
+    .hero-identity strong { font-size: 15px; font-weight: 600; }
+    .hero-identity span { color: rgba(255,255,255,.6); font-size: 12px; }
+    .hero h1 { color: #fff; font-size: 72px; font-weight: 600; line-height: 1.08; margin-bottom: 18px; }
+    .hero-description {
+      max-width: 700px; margin: 0 0 26px;
+      color: rgba(255,255,255,.82); font-size: 18px; line-height: 1.68;
+    }
+    .hero-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 22px; }
+    .hero-note { margin: 20px 0 0; color: rgba(255,255,255,.58); font-size: 12px; }
+
+    /* Hero Signal Card */
+    .hero-signal {
+      max-width: 300px; justify-self: end; margin-bottom: 2px;
+      padding: 24px; border: 1px solid rgba(255,255,255,.46);
+      border-radius: 14px; background: rgba(22,22,23,.46);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.42), 0 18px 38px rgba(0,0,0,.2);
+      backdrop-filter: blur(24px) saturate(150%);
+      -webkit-backdrop-filter: blur(24px) saturate(150%);
+    }
+    .hero-signal-eyebrow { margin-bottom: 18px; color: rgba(255,255,255,.68); font-size: 12px; }
+    .hero-signal-value { display: block; color: #fff; font-size: 48px; font-weight: 600; line-height: 1; }
+    .hero-signal-label { margin: 8px 0 16px; color: rgba(255,255,255,.88); font-size: 15px; font-weight: 600; }
+    .hero-signal-note { margin: 0 0 20px; color: rgba(255,255,255,.66); font-size: 13px; line-height: 1.6; }
+    .hero-signal-link {
+      min-height: 36px; display: inline-flex; align-items: center; gap: 7px;
+      color: #fff; font-size: 13px; font-weight: 600;
+    }
+    .hero-bottomline {
+      position: absolute; right: 0; bottom: 20px; left: 0;
+      display: flex; align-items: center; justify-content: space-between;
+      color: rgba(255,255,255,.56); font-size: 11px;
+    }
+    .scroll-label { display: inline-flex; align-items: center; gap: 8px; }
+
+    /* ===== Buttons ===== */
+    .button {
+      min-height: 48px; display: inline-flex; align-items: center; justify-content: center;
+      gap: 8px; padding: 0 19px; border: 1px solid transparent;
+      border-radius: 12px; font-size: 14px; font-weight: 600; cursor: pointer;
+      transition: background var(--speed) var(--ease);
+    }
+    .button-blue { background: var(--accent); color: #fff; }
+    .button-blue:hover { background: var(--accent-hover); }
+    .text-link {
+      min-height: 44px; display: inline-flex; align-items: center; gap: 7px;
+      color: var(--text); font-size: 15px; font-weight: 600;
+    }
+    .hero .text-link { color: #fff; }
+
+    /* ===== Proof Strip ===== */
+    .proof-strip {
+      position: relative; isolation: isolate; overflow: hidden;
+      border-bottom: 1px solid var(--line);
+      background: rgba(22,22,23,.88); color: #fff;
+    }
+    .proof-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    .stat { min-height: 126px; padding: 30px 0; }
+    .stat + .stat { padding-left: 32px; border-left: 1px solid #3a3a3c; }
+    .stat-value { display: block; color: #fff; font-size: 32px; font-weight: 600; line-height: 1; }
+    .stat-label { display: block; margin-top: 12px; color: var(--dark-secondary); font-size: 13px; }
+
+    /* ===== Statement ===== */
+    .statement { background: var(--page); }
+    .statement-grid {
+      display: grid;
+      grid-template-columns: minmax(260px, 5fr) minmax(0, 7fr);
+      gap: 72px;
+    }
+    .eyebrow { color: var(--text-secondary); font-size: 13px; font-weight: 600; line-height: 1.45; }
+    h2 { font-size: 48px; font-weight: 600; line-height: 1.08; margin-bottom: 22px; }
+    h2 em { color: var(--text-secondary); font-style: normal; font-weight: 500; }
+    .statement-body {
+      margin-bottom: 36px; color: #424245; font-size: 18px; line-height: 1.78;
+    }
+    .statement-quote {
+      margin: 0; padding-left: 20px;
+      border-left: 2px solid var(--text);
+      color: var(--text); font-size: 21px; font-weight: 600; line-height: 1.5;
+    }
+    .statement-email {
+      display: flex; flex-wrap: wrap; gap: 8px 14px;
+      margin: 24px 0 0; color: var(--text-secondary); font-size: 14px;
+    }
+    .statement-email a { color: var(--text); font-weight: 600; }
+    .statement-email a:hover { text-decoration: underline; text-underline-offset: 4px; }
+
+    /* ===== Works ===== */
+    .editing-showcase { border-top: 1px solid var(--line-soft); background: var(--surface); }
+    .section-heading {
+      display: grid;
+      grid-template-columns: minmax(0, 8fr) minmax(280px, 4fr);
+      align-items: end; gap: 56px; margin-bottom: 48px;
+    }
+    .section-aside {
+      max-width: 390px; margin: 0 0 6px;
+      color: var(--text-secondary); font-size: 16px; line-height: 1.7;
+    }
+    .editing-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px; }
+    .editing-card {
+      min-width: 0; overflow: hidden;
+      border: 1px solid var(--line); border-radius: var(--radius);
+      background: rgba(255,255,255,.72);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.94);
+      transition: border-color var(--speed) var(--ease), box-shadow var(--speed) var(--ease);
+    }
+    .editing-card:hover {
+      border-color: #a8a8ad;
+      box-shadow: 0 14px 34px rgba(0,0,0,.08);
+    }
+    .editing-card-visual {
+      overflow: hidden; aspect-ratio: 16/10; background: var(--dark);
+    }
+    .editing-card-visual img { width: 100%; height: 100%; object-fit: cover; }
+    .editing-card-info {
+      min-height: 198px; display: grid; grid-template-rows: auto auto 1fr;
+      gap: 10px; padding: 22px; border-top: 1px solid var(--line-soft);
+    }
+    .editing-card-meta {
+      display: flex; justify-content: space-between; gap: 12px;
+      color: var(--text-secondary); font-size: 12px;
+    }
+    .editing-card h3 { font-size: 23px; font-weight: 600; }
+    .editing-card p { color: var(--text-secondary); font-size: 14px; line-height: 1.6; }
+
+    /* ===== Strengths ===== */
+    .strengths { background: var(--page); }
+    .strengths-grid {
+      display: grid; grid-template-columns: repeat(3, minmax(0, 1fr));
+      border-top: 1px solid var(--line); border-bottom: 1px solid var(--line);
+    }
+    .strength { min-height: 250px; padding: 28px 28px 30px 0; }
+    .strength + .strength { padding-left: 28px; border-left: 1px solid var(--line); }
+    .strength-number {
+      display: block; margin-bottom: 58px;
+      color: var(--text-secondary); font-size: 13px; font-weight: 600;
+    }
+    .strength h3 { margin-bottom: 14px; font-size: 28px; font-weight: 600; }
+    .strength p { max-width: 300px; color: var(--text-secondary); font-size: 15px; line-height: 1.65; }
+
+    /* ===== Contact ===== */
+    .contact { padding-bottom: 128px; background: var(--dark); color: #fff; }
+    .contact-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 7fr) minmax(320px, 5fr);
+      align-items: end; gap: 72px;
+    }
+    .contact h2 { color: #fff; margin-bottom: 0; }
+    .contact h2 em { color: var(--dark-secondary); }
+    .contact .eyebrow { color: #fff; opacity: .64; }
+    .contact-details { max-width: 440px; }
+    .contact-details > p { color: var(--dark-secondary); font-size: 17px; line-height: 1.68; }
+    .contact-methods { display: grid; margin-top: 28px; }
+    .contact-method {
+      min-height: 64px; display: grid;
+      grid-template-columns: 52px minmax(0, 1fr) 44px;
+      align-items: center; gap: 12px;
+      border-top: 1px solid #3a3a3c;
+    }
+    .contact-method:last-child { border-bottom: 1px solid #3a3a3c; }
+    .contact-method-label { color: var(--dark-secondary); font-size: 12px; }
+    .contact-method-value { min-width: 0; color: #fff; font-size: 17px; font-weight: 600; overflow-wrap: anywhere; }
+    .copy-btn {
+      width: 44px; height: 44px; display: grid; place-items: center;
+      border: 1px solid #48484a; border-radius: 50%;
+      background: #242426; color: #fff; cursor: pointer;
+      transition: border-color var(--speed) var(--ease), background var(--speed) var(--ease);
+    }
+    .copy-btn:hover { border-color: #fff; background: #fff; color: var(--text); }
+
+    /* ===== Footer ===== */
+    .site-footer { border-top: 1px solid #333336; background: var(--dark); color: var(--dark-secondary); }
+    .footer-inner {
+      min-height: 96px; display: flex; align-items: center;
+      justify-content: space-between; gap: 20px; font-size: 12px;
+    }
+    .back-to-top {
+      width: 44px; height: 44px; display: grid; place-items: center;
+      border: 1px solid #48484a; border-radius: 50%; color: #fff;
+      transition: background var(--speed) var(--ease), border-color var(--speed) var(--ease);
+    }
+    .back-to-top:hover { border-color: #fff; background: #fff; color: var(--text); }
+
+    /* ===== SVG Icons ===== */
+    .icon { width: 16px; height: 16px; flex-shrink: 0; }
+    .icon-sm { width: 15px; height: 15px; }
+    .icon-md { width: 18px; height: 18px; }
+
+    /* ===== Toast ===== */
+    .toast {
+      position: fixed; z-index: 70; right: 22px; bottom: 22px;
+      max-width: 300px; padding: 12px 16px; border-radius: 8px;
+      background: var(--dark); color: #fff; font-size: 13px;
+      opacity: 0; transform: translateY(8px); pointer-events: none;
+      transition: opacity var(--speed) var(--ease), transform var(--speed) var(--ease);
+    }
+    .toast.is-visible { opacity: 1; transform: translateY(0); }
+
+    /* ===== Responsive ===== */
+    @media (max-width: 920px) {
+      .statement-grid, .contact-grid { grid-template-columns: 1fr; gap: 38px; }
+      .section-heading { grid-template-columns: 1fr; gap: 20px; }
+      .section-aside { max-width: 640px; }
+    }
+    @media (max-width: 760px) {
+      :root { --gutter: 32px; --section-space: 76px; }
+      .site-header { height: 68px; }
+      .desktop-nav { display: none; }
+      .hero { height: min(620px, calc(100svh - 82px)); min-height: 560px; margin-top: -68px; }
+      .hero-grid { grid-template-columns: 1fr; gap: 26px; padding-top: 102px; padding-bottom: 62px; }
+      .hero h1 { font-size: 46px; }
+      .hero-signal { max-width: none; justify-self: stretch; }
+      .hero-bottomline { display: none; }
+      h2 { font-size: 34px; }
+      .proof-grid { grid-template-columns: 1fr; }
+      .stat, .stat + .stat { min-height: 80px; padding: 20px 0; border-left: 0; }
+      .stat + .stat { border-top: 1px solid #3a3a3c; padding-left: 0; }
+      .editing-grid, .strengths-grid { grid-template-columns: 1fr; }
+      .strength { min-height: 0; padding: 28px 0; }
+      .strength + .strength { padding-left: 28px; border-left: 0; border-top: 1px solid var(--line); }
+      .contact { padding-bottom: 88px; }
+      .footer-inner { flex-wrap: wrap; }
+    }
+  </style>
+</head>
+<body class="glass-shell">
+
+  <!-- Header -->
+  <header class="site-header" id="top">
+    <div class="container header-inner">
+      <a class="brand" href="#top" aria-label="返回首页">
+        <span class="brand-mark">ME</span>
+        <span class="brand-word">你的名字</span>
+      </a>
+      <nav class="desktop-nav" aria-label="主导航">
+        <a href="#top">首页</a>
+        <a href="#about">关于</a>
+        <a href="#works">作品</a>
+        <a href="#contact">联系</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <!-- Hero -->
+    <section class="hero" aria-labelledby="hero-title">
+      <div class="container hero-grid">
+        <div class="hero-copy">
+          <p class="hero-identity">
+            <strong>你的身份 / 职位标签</strong>
+            <span>个人作品集 · 2026</span>
+          </p>
+          <h1 id="hero-title">你的名字</h1>
+          <p class="hero-description">这里写一段自我介绍，描述你的专业方向、核心能力和项目经验。访客打开页面第一眼看到的就是这段话，所以写得简洁有力。</p>
+          <div class="hero-actions">
+            <a class="button button-blue" href="#works">
+              查看作品
+              <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+            </a>
+            <a class="text-link" href="#about">
+              了解更多
+              <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 7h10v10"/><path d="M7 17 17 7"/></svg>
+            </a>
+          </div>
+          <p class="hero-note">标签一 · 标签二 · 标签三</p>
+        </div>
+        <aside class="hero-signal" aria-label="项目成果">
+          <p class="hero-signal-eyebrow">我的项目成果</p>
+          <strong class="hero-signal-value">TOP 1</strong>
+          <p class="hero-signal-label">某项目 / 某榜单</p>
+          <p class="hero-signal-note">简短描述你在项目中的角色和贡献</p>
+          <a class="hero-signal-link" href="#works">
+            查看详情
+            <svg class="icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 7h10v10"/><path d="M7 17 17 7"/></svg>
+          </a>
+        </aside>
+      </div>
+      <div class="container hero-bottomline">
+        <span class="scroll-label">
+          <svg class="icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14"/><path d="m19 12-7 7-7-7"/></svg>
+          向下浏览
+        </span>
+      </div>
+    </section>
+
+    <!-- Proof Strip -->
+    <section class="proof-strip" aria-label="个人成果">
+      <div class="container proof-grid">
+        <div class="stat">
+          <span class="stat-value">10+</span>
+          <span class="stat-label">已完成项目</span>
+        </div>
+        <div class="stat">
+          <span class="stat-value">3 年</span>
+          <span class="stat-label">相关经验</span>
+        </div>
+        <div class="stat">
+          <span class="stat-value">独立交付</span>
+          <span class="stat-label">从方案到落地</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Statement / About -->
+    <section class="statement section-pad" id="about" aria-labelledby="about-title">
+      <div class="container statement-grid">
+        <div class="statement-lead">
+          <p class="eyebrow">核心价值</p>
+          <h2 id="about-title">我的优势，是把事情做到位。</h2>
+        </div>
+        <div class="statement-main">
+          <p class="statement-body">这里写你的核心能力描述。说明你擅长什么、怎么工作、关注什么。让读者理解你的独特价值，而不只是技能清单。</p>
+          <p class="statement-quote">我不只做单个环节，我会对最终结果负责。</p>
+          <p class="statement-email"><span>邮箱</span> <a href="mailto:your@email.com">your@email.com</a></p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Works -->
+    <section class="editing-showcase section-pad" id="works" aria-labelledby="works-title">
+      <div class="container section-heading">
+        <div>
+          <p class="eyebrow">代表作与精选作品 / 01—03</p>
+          <h2 id="works-title">先看作品，<br><em>再判断能力。</em></h2>
+        </div>
+        <p class="section-aside">精选代表性作品，展示你在不同项目中的实际产出和判断力。</p>
+      </div>
+      <div class="container editing-grid">
+        <article class="editing-card" tabindex="0">
+          <div class="editing-card-visual">
+            <img src="https://placehold.co/800x500/1a1a2e/ffffff?text=作品+01" alt="作品 01 封面">
+          </div>
+          <div class="editing-card-info">
+            <div class="editing-card-meta"><span>作品 01</span><span>类别标签</span></div>
+            <h3>作品名称</h3>
+            <p>简短描述这个项目，展示你做了什么、达到了什么效果。</p>
+          </div>
+        </article>
+        <article class="editing-card" tabindex="0">
+          <div class="editing-card-visual">
+            <img src="https://placehold.co/800x500/16213e/ffffff?text=作品+02" alt="作品 02 封面">
+          </div>
+          <div class="editing-card-info">
+            <div class="editing-card-meta"><span>作品 02</span><span>类别标签</span></div>
+            <h3>作品名称</h3>
+            <p>简短描述这个项目，展示你做了什么、达到了什么效果。</p>
+          </div>
+        </article>
+        <article class="editing-card" tabindex="0">
+          <div class="editing-card-visual">
+            <img src="https://placehold.co/800x500/0f3460/ffffff?text=作品+03" alt="作品 03 封面">
+          </div>
+          <div class="editing-card-info">
+            <div class="editing-card-meta"><span>作品 03</span><span>类别标签</span></div>
+            <h3>作品名称</h3>
+            <p>简短描述这个项目，展示你做了什么、达到了什么效果。</p>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- Strengths -->
+    <section class="strengths section-pad" id="strengths" aria-labelledby="strengths-title">
+      <div class="container">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">个人优势</p>
+            <h2 id="strengths-title">我的优势，<em>不止是会用工具。</em></h2>
+          </div>
+          <p class="section-aside">说明你能把多个环节串起来，落到同一个结果上。</p>
+        </div>
+        <div class="strengths-grid">
+          <div class="strength">
+            <span class="strength-number">01</span>
+            <h3>能独立交付</h3>
+            <p>接到任务后，可以从拆解推进到最终交付，减少中间交接和反复沟通。</p>
+          </div>
+          <div class="strength">
+            <span class="strength-number">02</span>
+            <h3>有质量判断</h3>
+            <p>不只关注单个细节，也会判断整体协调、节奏和最终效果，让每个部分服务于完整作品。</p>
+          </div>
+          <div class="strength">
+            <span class="strength-number">03</span>
+            <h3>有上线经验</h3>
+            <p>参与过多个实际上线项目，理解从制作到交付的真实要求，并有可验证的项目成果。</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact -->
+    <section class="contact section-pad" id="contact" aria-labelledby="contact-title">
+      <div class="container contact-grid">
+        <div>
+          <p class="eyebrow">联系</p>
+          <h2 id="contact-title">欢迎联系我，<br><em>聊聊新机会。</em></h2>
+        </div>
+        <div class="contact-details">
+          <p>正在寻找新的机会。欢迎通过手机、微信或邮箱联系我。</p>
+          <div class="contact-methods">
+            <div class="contact-method">
+              <span class="contact-method-label">手机</span>
+              <span class="contact-method-value">138-0000-0000</span>
+              <button class="copy-btn" data-copy="13800000000" aria-label="复制手机号">
+                <svg class="icon-md" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>
+              </button>
+            </div>
+            <div class="contact-method">
+              <span class="contact-method-label">微信</span>
+              <span class="contact-method-value">your_wechat</span>
+              <button class="copy-btn" data-copy="your_wechat" aria-label="复制微信号">
+                <svg class="icon-md" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>
+              </button>
+            </div>
+            <div class="contact-method">
+              <span class="contact-method-label">邮箱</span>
+              <span class="contact-method-value">your@email.com</span>
+              <button class="copy-btn" data-copy="your@email.com" aria-label="复制邮箱">
+                <svg class="icon-md" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <p>&copy; 2026 你的名字. All rights reserved.</p>
+      <a class="back-to-top" href="#top" aria-label="返回顶部">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m18 15-6-6-6 6"/></svg>
+      </a>
+    </div>
+  </footer>
+
+  <!-- Toast -->
+  <div class="toast" id="toast"></div>
+
+  <script>
+    // Header scroll effect
+    const header = document.querySelector('.site-header');
+    const onScroll = () => {
+      header.classList.toggle('is-scrolled', window.scrollY > 60);
+    };
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+
+    // Copy to clipboard
+    const toast = document.getElementById('toast');
+    let toastTimer;
+    document.querySelectorAll('.copy-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const text = btn.dataset.copy;
+        navigator.clipboard.writeText(text).then(() => {
+          toast.textContent = '已复制: ' + text;
+          toast.classList.add('is-visible');
+          clearTimeout(toastTimer);
+          toastTimer = setTimeout(() => toast.classList.remove('is-visible'), 2000);
+        });
+      });
+    });
+  </script>
+</body>
+</html>
