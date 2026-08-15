@@ -1,61 +1,29 @@
 /* ============================================================
    content.js —— 全站唯一内容数据源
-   ------------------------------------------------------------
-   三个页面（index / works / resume）的所有文字都从这里读。
-   你只需要改这个文件，不用碰 HTML。
-
-   带 TODO 的地方是需要你填真实内容的。
-   删掉 TODO 注释不影响运行。
    ============================================================ */
 
 window.SITE = {
 
-  /* ---------- 0. 媒体资源根（视频 / 封面 / 工作流图） ---------
-     决定视频和封面从哪里加载。字体、图标等小文件不受影响，
-     始终跟着网页走（GitHub Pages），无需上传 OSS。
-
-     两种用法：
-     A. 本地 / GitHub Pages 自带资源（默认）
-        assetBase: ''
-        下面各 video / cover / workflow 字段保持相对路径即可。
-
-     B. 视频放阿里云 OSS（推荐用于大视频）
-        assetBase: 'https://supzy-portfolio-assets.oss-cn-hangzhou.aliyuncs.com'
-        —— 末尾不要加斜杠。
-        —— 上传时保持 assets/ 目录结构（assets/videos/、assets/works/{slug}/、assets/images/），
-           代码会自动拼成 桶域名 + / + 相对路径。
-
-     任何字段如果直接写完整 http(s) 链接，会原样使用、不受 assetBase 影响。
-     注：OSS 默认域名会返回 Content-Disposition: attachment，<video> 标签
-     仍能播放（浏览器忽略该头直接拉流），但右键保存会弹下载框。
-     后续可绑自定义域名消除该行为（需 ICP 备案）。
-  ------------------------------------------------------------ */
+  /* ---------- 0. 媒体资源根 ---------------------------------- */
   assetBase: 'https://supzy-portfolio-assets.oss-cn-hangzhou.aliyuncs.com',
 
   /* ---------- 1. 身份与定位 ---------------------------------- */
   profile: {
-    // TODO: 换成你的真名
-    name: '你的名字',
-    // 页眉左上角的小标记，建议用姓名首字母
-    mark: 'YN',
-    // 首屏大标题 —— 全站最重要的一句话
-    // TODO: 按你的真实强项改写
+    name: '陈明珠',
+    mark: 'CM',
     headline: '把 brief 做成<em>能投的片子</em>',
-    // 副标题：一句话说清你的方法和边界
-    subline: '我用 AI 生成 + 传统剪辑调色的混合流程做广告片和短剧。从脚本、分镜、镜头生成到成片交付，一个人能跑完整条链路。',
-    positioning: 'AIGC 视频创作 · 广告 / 短剧',
+    subline: '美术学专业出身，系统训练构图、色彩与视觉表达。现在用 AI 生成 + 传统剪辑调色的混合流程做广告片和短剧，从脚本、分镜、镜头生成到成片交付，一个人跑完整条链路。',
+    positioning: 'AIGC 视觉设计师 · 广告 / 短剧',
     keywords: ['广告片', '竖屏短剧', 'AI 分镜', '人物一致性', '成片调色'],
     availability: '开放机会 · 可即时到岗',
-    // 首屏轮播：作品封面横屏版，缓慢缩放 + 交叉淡入淡出自动播放。
-    // 纯图片无视频，合计约 700KB，加载很快。改顺序或增减直接编辑这个数组。
     heroSlides: [
-      'assets/images/hero/01-changye.jpg',       // 古装权谋
-      'assets/images/hero/04-zero-echo.jpg',     // 赛博科幻
-      'assets/images/hero/06-ad-chocolate.jpg',  // 德芙广告 KV
-      'assets/images/hero/02-qingqing.jpg',      // 都市言情
-      'assets/images/hero/05-you-are-great.jpg', // 家庭暖光
-      'assets/images/hero/07-ad-perfume.jpg',    // 香水广告 KV
-      'assets/images/hero/03-stranger.jpg',      // 都市悬疑
+      'assets/images/hero/01-changye.jpg',
+      'assets/images/hero/04-zero-echo.jpg',
+      'assets/images/hero/06-ad-chocolate.jpg',
+      'assets/images/hero/02-qingqing.jpg',
+      'assets/images/hero/05-you-are-great.jpg',
+      'assets/images/hero/07-ad-perfume.jpg',
+      'assets/images/hero/03-stranger.jpg',
     ],
   },
 
@@ -64,17 +32,16 @@ window.SITE = {
     { value: 7, unit: '支', label: '已交付成片', note: '短剧 3 / 短片 2 / 广告 2' },
     { value: 13, unit: '分钟', label: '累计成片时长', note: '含竖屏与横屏' },
     { value: 9, unit: '个', label: '打通的工具链', note: '生成到后期全流程' },
-    { value: 48, unit: '小时', label: '最快交付周期', note: '从 brief 到可投放' },
+    { value: 7, unit: '天', label: '单片平均周期', note: '从 brief 到成片交付' },
   ],
 
   /* ---------- 3. 自述 --------------------------------------- */
   statement: {
     eyebrow: '我怎么工作',
     title: '模型只负责出画面，<em>片子好不好是判断力的事。</em>',
-    body: 'AI 让出画面变得很便宜，也让平庸的画面变得更多。我的工作重心不在抽卡，而在抽卡之前和之后：先把 brief 拆成能拍的镜头，再从几十条素材里挑出情绪对得上的那几条，最后靠剪辑节奏和调色把它们缝成一支完整的片子。',
+    body: 'AI 让出画面变得很便宜，也让平庸的画面变得更多。我的工作重心不在抽卡，而在抽卡之前和之后：先把 brief 拆成能拍的镜头，再从几十条素材里挑出情绪对得上的那几条，最后靠剪辑节奏和调色把它们缝成一支完整的片子。美术学的底子让我更关注构图、光影、角色气质和叙事逻辑，而不只是"画面好不好看"。',
     quote: '我对最终成片负责，不只对我那一段负责。',
-    // TODO: 换成你的邮箱
-    email: 'your@email.com',
+    email: '2353342839@qq.com',
   },
 
   /* ---------- 4. 工作流轨道 ---------------------------------- */
@@ -83,18 +50,16 @@ window.SITE = {
     title: '一条能重复跑的链路，<em>不靠运气。</em>',
     aside: '每一步都有明确的产出物和判断标准，中途可以插入客户反馈，不用推翻重来。',
     steps: [
-      { no: '01', title: '拆 brief', out: '一页策略 + 卖点排序', tool: '文档' },
-      { no: '02', title: '写脚本', out: '分场景台本 + 时长预算', tool: 'GPT / 人工改写' },
-      { no: '03', title: '出分镜', out: '关键帧参考图 + 镜头表', tool: 'Midjourney / 即梦' },
-      { no: '04', title: '生成镜头', out: '每镜 3—5 条候选', tool: '可灵 / 即梦 / Runway' },
-      { no: '05', title: '筛选与剪辑', out: '粗剪 + 节奏定版', tool: 'Premiere / 剪映' },
-      { no: '06', title: '后期交付', out: '调色 + 声音 + 多尺寸导出', tool: '达芬奇 / AE' },
+      { no: '01', title: '拆 brief', out: '剧本/Brief 拆解 + 视觉策略', tool: 'GPT / DeepSeek' },
+      { no: '02', title: '视觉设定', out: '人物/场景/道具/色板', tool: 'Midjourney / Nano Banana' },
+      { no: '03', title: '出分镜', out: '分镜表 + 关键帧参考图', tool: 'GPT-image2 / PS' },
+      { no: '04', title: '生成镜头', out: '每镜 3—5 条候选 + 多版本筛选', tool: 'Kling / Seedance / libtv' },
+      { no: '05', title: '筛选与剪辑', out: '粗剪 + 节奏定版 + 字幕', tool: '剪映' },
+      { no: '06', title: '后期交付', out: '调色 + 声音 + 多尺寸导出', tool: '剪映 / 达芬奇' },
     ],
   },
 
-  /* ---------- 5. 作品分类 ----------------------------------
-     id 要和下面每个作品的 category 对应。
-  ---------------------------------------------------------- */
+  /* ---------- 5. 作品分类 ---------------------------------- */
   categories: [
     { id: 'all', label: '全部', note: '' },
     { id: 'ad', label: '广告', note: '品牌与产品片，看转化和过审' },
@@ -102,13 +67,7 @@ window.SITE = {
     { id: 'film', label: '短片', note: '完整故事，看叙事能力' },
   ],
 
-  /* ---------- 6. 作品 --------------------------------------
-     slug 与文件路径约定：
-       assets/works/{slug}/video.mp4
-       assets/works/{slug}/cover.jpg   （可选，没有就用视频首帧）
-       assets/works/{slug}/workflow.png（可选，工作流原图，会在弹窗「完整工作流」区展示）
-     aspect 决定卡片比例：9:16（竖屏短剧）/ 16:9（其他）
-  ---------------------------------------------------------- */
+  /* ---------- 6. 作品 -------------------------------------- */
   works: [
 
     {
@@ -116,23 +75,21 @@ window.SITE = {
       video: 'assets/works/changye/video.mp4',
       title: '长夜有灯', en: 'In the Long Night, There Is a Lamp',
       category: 'drama', featured: true, aspect: '9:16',
-      year: '2025', client: '自主命题',
-      role: '导演 / 分镜 / AI 生成 / 剪辑 / 调色',
+      year: '2025', client: '独立创作',
+      role: '人物设定 / 场景设定 / 色板 / 分镜 / 提示词 / 生成 / 剪辑',
       duration: '01:37', resolution: '2160 × 3840 · 竖屏',
-      summary: '古装权谋爱情短剧。红袍女将携血诏入宫，与冷面君王在乱局中对峙又相守。全片 AI 生成，靠人物一致性和情绪节奏撑起完整叙事。',
-      brief: 'TODO：一两句话说清这支短剧想讲什么。',
-      result: 'TODO：可验证结果。比如发布平台、完播率、客户反馈；没数据就写交付规格和周期。',
-      tools: ['可灵', 'Midjourney', 'Premiere', '达芬奇'],
-      tags: ['古装', '权谋', '爱情', '代表作'],
+      summary: '古装穿越女频复仇短剧。现代古武门主穿越进绝望女子体内，凭古武自救后开启逆转命运的复仇之路。全片 AI 生成，重点解决多角色一致性与古装动作逻辑。',
+      brief: '以穿越信息的视觉化表达为核心挑战，在有限时长内兼顾故事完整度、情绪冲击力与电影化视觉质感，重点解决古装场景下多角色与场景一致性问题。',
+      result: '独立完成从人物/场景设定到成片交付的全流程。成功解决穿越信息视觉化、多角色一致性、古装动作逻辑及短剧开场钩子的节奏设计。',
+      tools: ['Kling', 'Midjourney', 'Nano Banana', '剪映', 'PS'],
+      tags: ['古装', '穿越', '女频', '代表作'],
       process: [
-        { no: '01', title: '角色锁定', body: 'TODO：怎么保证女主在不同镜头里脸一样？用了什么参考图/垫图策略？' },
-        { no: '02', title: '分镜与运镜', body: 'TODO：古装场景的镜头表怎么排？' },
-        { no: '03', title: '生成与筛选', body: 'TODO：每镜生成多少条、筛选标准是什么？' },
-        { no: '04', title: '后期缝合', body: 'TODO：调色做了什么统一？对白/配乐/音效怎么处理的？' },
+        { no: '01', title: '人物与场景设定', body: '用 Midjourney + Nano Banana 锁定女主/男主/配角形象，建立服装/发型/配饰参考图库，确保跨镜头一致性。同步完成古装宫殿、城墙、战场等核心场景的色板与氛围设定。' },
+        { no: '02', title: '分镜与视觉化', body: '将穿越这一抽象信息转化为可拍摄的视觉语言：坠落→灵魂替换→睁眼→自救。用分镜表明确每个镜头的景别、运镜和情绪功能，重点设计开场钩子的节奏。' },
+        { no: '03', title: '生成与一致性控制', body: '通过固定参考图 + 首帧垫图策略，解决古装角色在不同场景/光线下的五官、年龄、服装一致性。每镜生成 3-5 条候选，筛选标准：人物像不像、动作合不合理、情绪对不对。' },
+        { no: '04', title: '剪辑与后期', body: '通过剪映完成素材筛选、粗剪、节奏调整、字幕和对白/BGM/SFX 的混音，统一全片调色风格，确保古装场景的视觉连贯性。' },
       ],
-      prompts: [
-        { model: '可灵', text: 'TODO: 把真实用过的关键提示词贴在这里。' },
-      ],
+      prompts: [],
     },
 
     {
@@ -140,14 +97,19 @@ window.SITE = {
       video: 'assets/works/qingqing/video.mp4',
       title: '倾倾之夜', en: 'Tender Night',
       category: 'drama', featured: false, aspect: '9:16',
-      year: '2025', client: '自主命题',
-      role: '导演 / 分镜 / AI 生成 / 剪辑',
+      year: '2025', client: '公司承制（甲方剧本）',
+      role: '角色设定 / 场景搭建 / 分镜 / 镜头语言 / AI 生成',
       duration: '02:10', resolution: '2160 × 3840 · 竖屏',
-      summary: '都市言情短剧。轮椅男主与守护他的女主，在奢华公寓和雨夜里展开一段关于脆弱与依赖的关系。紫红金调性。',
-      brief: 'TODO', result: 'TODO',
-      tools: ['可灵', 'Midjourney', '剪映'],
-      tags: ['都市', '言情', '轮椅'],
-      process: [{ no: '01', title: 'TODO', body: 'TODO' }],
+      summary: '公司承制的仿真人都市甜宠短剧。根据甲方剧本进行 AIGC 影视化制作，以唯美浪漫的豪门都市质感为核心视觉方向。',
+      brief: '根据甲方提供剧本完成 AIGC 影视化制作。重点处理人物形象一致性、场景空间连续性、多人物站位、正反打关系与镜头衔接。',
+      result: '完成从文字剧本到仿真人影像的完整视觉转化。通过统一人物/服装/场景/光影/色彩体系，使不同生成镜头保持稳定的视觉连贯性，甲方验收通过。',
+      tools: ['Kling', 'Midjourney', 'Nano Banana', '剪映'],
+      tags: ['都市', '甜宠', '商业项目'],
+      process: [
+        { no: '01', title: '角色与场景设定', body: '围绕甲方剧情需求完成角色视觉设定（轮椅男主、女主）和豪门公寓、雨夜街道等场景搭建，建立统一的紫红金视觉体系。' },
+        { no: '02', title: '分镜与镜头语言', body: '规划正反打关系、多人物站位、镜头衔接，确保对话场景的空间连续性和情绪节奏。' },
+        { no: '03', title: 'AI 生成与质量控制', body: '生成镜头后重点检查人物形象一致性、场景空间连续性，多版本筛选确保每个镜头都服务于剧情推进。' },
+      ],
       prompts: [],
     },
 
@@ -156,30 +118,40 @@ window.SITE = {
       video: 'assets/works/zero-echo/video.mp4',
       title: '零号回声', en: 'ZERO ECHO',
       category: 'film', featured: false, aspect: '16:9',
-      year: '2025', client: '自主命题',
-      role: '导演 / 编剧 / AI 生成 / 剪辑',
+      year: '2025', client: '独立创作',
+      role: '角色设定 / 场景设定 / 分镜 / 动作编排 / AI 生成 / 剪辑',
       duration: '01:21', resolution: '3840 × 2160 · 横屏',
-      summary: '赛博科幻短片。银发女孩从 CORE 00 实验舱逃出，红发男子在废墟中等她——她逃出去是为了活，她回来是为了夺回一切。',
-      brief: 'TODO', result: 'TODO',
-      tools: ['可灵', 'Midjourney', 'Premiere'],
-      tags: ['科幻', '动作', '赛博'],
-      process: [{ no: '01', title: 'TODO', body: 'TODO' }],
+      summary: 'CG 风格科幻动作短片。"零号适配体"洛霜与实验机构回收者赤曜在封闭走廊中展开高强度对决，探索 CG 角色在复杂打斗场景中的动作连贯性。',
+      brief: '以封闭实验走廊为核心场景，通过高速近身格斗、超能力反转与空间环境破坏推进剧情。重点探索 CG 角色在复杂打斗场景中的动作连贯性、镜头衔接与视觉风格统一。',
+      result: '完成一支兼具叙事性、动作表现力与科幻视觉质感的 AIGC 短片。成功解决连续镜头中角色站位、动作路径、场景结构和光影色彩的统一设计。',
+      tools: ['Kling', 'Midjourney', 'Nano Banana', 'Seedance', '剪映'],
+      tags: ['科幻', 'CG', '动作'],
+      process: [
+        { no: '01', title: '角色与世界观', body: '设定银发双麻花辫女主（零号适配体）和红发黑风衣反派，构建近未来实验走廊的视觉环境（金属墙壁、警示灯、破损管道）。' },
+        { no: '02', title: '动作编排与分镜', body: '设计格斗路径：闪避→近身→超能力爆发→环境破坏→反转。每个动作段落明确镜头景别和角色相对位置。' },
+        { no: '03', title: '生成与一致性', body: '在激烈动作场景中保持角色外观一致性是最大难点。通过固定参考图、限定场景元素、统一光源方向来约束生成结果。' },
+      ],
       prompts: [],
     },
 
     {
       id: 'you-are-great', slug: 'you-are-great',
       video: 'assets/works/you-are-great/video.mp4',
-      title: '你，很棒', en: 'You, Very Good',
+      title: '你，很棒', en: 'You Are Great',
       category: 'film', featured: false, aspect: '16:9',
-      year: '2025', client: '自主命题',
-      role: '导演 / 分镜 / AI 生成 / 剪辑',
+      year: '2025', client: '独立创作',
+      role: '剧本深化 / 人物设定 / 场景设定 / 分镜 / 提示词 / 生成 / 剪辑',
       duration: '03:49', resolution: '3840 × 2160 · 横屏',
-      summary: '家庭亲情短片。一段关于"责备里藏着爱"的代际故事，最终以一句最想说的肯定收尾。暖光调性。',
-      brief: 'TODO', result: 'TODO',
-      tools: ['可灵', 'Midjourney', 'Premiere'],
-      tags: ['家庭', '亲情', '成长'],
-      process: [{ no: '01', title: 'TODO', body: 'TODO' }],
+      summary: '母女关系现实主义情感短片。以女儿从童年到成为母亲的人生跨度为叙事主线，通过"98分试卷"等生活化细节呈现代际沟通的温度。',
+      brief: '围绕母女关系与代际沟通展开。通过"98分试卷"、升职争执、旧相册等细节，呈现一位不善表达的母亲如何倾尽所有托举女儿，也描绘女儿从埋怨到理解与和解的转变。',
+      result: '完成一支 3 分 49 秒的完整叙事短片。重点解决人物跨年龄一致性（童年/青年/中年三阶段同一人物）、场景空间连续性与情绪递进问题。',
+      tools: ['Kling', 'Midjourney', '剪映'],
+      tags: ['家庭', '亲情', '现实主义'],
+      process: [
+        { no: '01', title: '剧本与人物设定', body: '深化原始创意为完整分场景剧本。设定女儿三个年龄阶段的形象（保持五官一致、年龄变化自然），以及母亲从中年到老年的形象演变。' },
+        { no: '02', title: '场景与调性', body: '构建老式家庭客厅、学校教室、医院走廊等场景。统一低饱和暖色影调，用克制的镜头语言和细腻的表演调度强化真实感。' },
+        { no: '03', title: '跨年龄一致性', body: '核心难点：同一角色跨 20+ 年的面部一致性。通过固定五官参考图 + 只改发型/皱纹/服装的策略逐步"老化"角色。' },
+      ],
       prompts: [],
     },
 
@@ -188,46 +160,61 @@ window.SITE = {
       video: 'assets/works/stranger/video.mp4',
       title: '婚姻里的陌生人', en: 'A Stranger in Our Marriage',
       category: 'drama', featured: false, aspect: '9:16',
-      year: '2025', client: '自主命题',
-      role: '导演 / 分镜 / AI 生成 / 剪辑',
+      year: '2025', client: '独立创作（面向海外）',
+      role: '人物设定 / 场景搭建 / 镜头设计 / AI 生成 / 剪辑',
       duration: '01:44', resolution: '2160 × 3840 · 竖屏',
-      summary: '现代都市悬疑短剧。婚礼上的四个女人、一枚婚戒、一只珍珠耳环——"She wasn\'t the one I feared. He was."',
-      brief: 'TODO', result: 'TODO',
-      tools: ['可灵', 'Midjourney', 'Premiere'],
-      tags: ['都市', '悬疑', '婚姻'],
-      process: [{ no: '01', title: 'TODO', body: 'TODO' }],
+      summary: '面向海外的仿真人 AI 短剧。都市女性题材，以婚姻背叛与女性觉醒为核心冲突，通过"发现异常→确认背叛→隐忍调查→主动设局"的节奏推进。',
+      brief: '在人物形象、居住空间、职业背景及视觉表达上进行海外化设计。以高质感现代住宅与精英阶层生活方式建立故事环境，强化悬疑感与情绪张力。',
+      result: '完成海外向短剧的完整制作。通过细节道具（戒指/耳环）、人物表演和镜头节奏塑造女主从怀疑到掌握主动权的心理变化，展示对海外视觉风格的综合把控能力。',
+      tools: ['Kling', 'Midjourney', 'Nano Banana', '剪映'],
+      tags: ['海外', '都市', '悬疑', '女性觉醒'],
+      process: [
+        { no: '01', title: '海外化视觉设定', body: '所有角色采用欧美面孔，场景设定为纽约风高端公寓和写字楼。服装、妆容、室内设计全部对标美剧品质。' },
+        { no: '02', title: '悬疑节奏设计', body: '通过道具线索（婚戒特写、珍珠耳环）和角色微表情的镜头编排，建立"表面平静、暗流涌动"的悬疑感。' },
+        { no: '03', title: '多角色管理', body: '管理 4 个主要角色（丈夫/妻子/第三者/闺蜜）在同一空间内的站位和表演一致性，处理多人物对手戏。' },
+      ],
       prompts: [],
     },
 
     {
       id: 'ad-chocolate', slug: 'ad-chocolate',
       video: 'assets/works/ad-chocolate/video.mp4',
-      title: '巧克力广告', en: 'Chocolate Spot',
+      title: '德芙《松一点》', en: 'Dove "Ease Up"',
       category: 'ad', featured: false, aspect: '16:9',
-      year: '2025', client: 'TODO：品牌方或自主命题',
-      role: '导演 / 分镜 / AI 生成 / 剪辑',
+      year: '2025', client: '德芙（创意练习）',
+      role: '概念设计 / 剧本 / 分镜 / 人物设定 / 场景设定 / AI 生成 / 产品视觉',
       duration: '01:11', resolution: '3840 × 2160 · 横屏',
-      summary: '法式田园调性广告。雨后木屋、薄荷绿衬衫、一杯咖啡和一段静谧时光。',
-      brief: 'TODO', result: 'TODO',
-      tools: ['即梦', 'AE'],
-      tags: ['广告', '食品', '田园'],
-      process: [{ no: '01', title: 'TODO', body: 'TODO' }],
+      summary: '围绕"给自己留下一刻丝滑"的品牌情绪，打造自然疗愈系广告短片。用"黑色鹅卵石"象征疲惫，一块巧克力成为情绪转折的触发点。',
+      brief: '为德芙丝滑牛奶巧克力打造一支自然疗愈系广告短片。以年轻女性在生活压力中的情绪变化为核心，讲述从紧绷到放松、重新感受身边美好的过程。',
+      result: '完整参与从概念设计、剧本创意、分镜规划、人物与场景设定到 AIGC 画面生成、产品视觉设计及广告海报延展的全流程。建立雨后森林木屋、湿润草地、浅溪等自然疗愈场景体系。',
+      tools: ['Kling', 'Midjourney', 'Seedance', '剪映', 'PS'],
+      tags: ['品牌广告', '德芙', '自然疗愈'],
+      process: [
+        { no: '01', title: '品牌策略与创意', body: '围绕"丝滑"这一品牌核心词，将其从口感转化为情绪体验。设计"鹅卵石=压力"的视觉隐喻，让巧克力成为释放压力的触发点。' },
+        { no: '02', title: '视觉风格建立', body: '参考自然主义电影与生活方式广告美学。以低饱和苔藓绿、奶油白、原木棕与巧克力可可色为整体视觉基调，营造明亮阴雨天中的温暖治愈感。' },
+        { no: '03', title: '产品与品牌延展', body: '除成片外，同步完成产品特写镜头、品牌 KV 海报设计，探索 AI 生成技术在商业广告全链路的应用。' },
+      ],
       prompts: [],
     },
 
     {
       id: 'ad-perfume', slug: 'ad-perfume',
       video: 'assets/works/ad-perfume/video.mp4',
-      title: '香水广告', en: 'Perfume Spot',
+      title: 'Boy Smells《她不止一个名字》', en: 'Boy Smells "Violet Ends"',
       category: 'ad', featured: false, aspect: '16:9',
-      year: '2025', client: 'TODO：品牌方或自主命题',
-      role: '导演 / 分镜 / AI 生成 / 剪辑',
+      year: '2025', client: 'Boy Smells（创意练习）',
+      role: '概念策划 / 剧本 / 人物设定 / 场景设计 / 色彩体系 / 分镜 / AI 生成',
       duration: '01:20', resolution: '2880 × 2160 · 横屏',
-      summary: '柔粉调性香水广告。"会希望有人看见我的脆弱"——紫色花瓣、粉墙、薰衣草座椅上的女性独白。',
-      brief: 'TODO', result: 'TODO',
-      tools: ['即梦', 'AE'],
-      tags: ['广告', '美妆', '柔粉'],
-      process: [{ no: '01', title: 'TODO', body: 'TODO' }],
+      summary: '为 Boy Smells Violet Ends 香水打造的创意艺术广告。围绕"拒绝被单一定义，拥抱多重自我"的品牌精神，将气味转化为可视化的情绪旅程。',
+      brief: '以一位年轻女性为核心角色，通过香气引导进入不同情绪空间：未来感登记室、大黄黑胡椒长廊、紫罗兰空间、红茶空间、多重镜像空间。不同场景对应香水原料与人物心理状态的变化。',
+      result: '完整参与从概念策划到 AI 生成画面的全过程。结合柔和超现实主义、复古未来主义与高端香氛广告美学，以淡紫与蜜桃粉色彩体系为核心，打造具有艺术感和品牌辨识度的视觉世界。',
+      tools: ['Kling', 'Midjourney', 'Seedance', '剪映', 'PS'],
+      tags: ['品牌广告', '香氛', '超现实'],
+      process: [
+        { no: '01', title: '品牌精神解读', body: '研究 Boy Smells 品牌调性（性别流动、多元自我），将 Violet Ends 的香调结构（紫罗兰+大黄+黑胡椒+红茶）转化为对应的视觉空间和情绪状态。' },
+        { no: '02', title: '五感转视觉', body: '每种香料成分对应一个情绪空间：紫罗兰=柔软与接纳、大黄黑胡椒=锋利与边界、红茶=沉默内省。用玻璃、花瓣、烟雾、液体等材质语言物化气味。' },
+        { no: '03', title: '色彩体系与美学', body: '以品牌标志性淡紫与蜜桃粉为核心色，延展出完整的场景色板。每个空间有独立色彩但整体和谐，确保品牌辨识度贯穿全片。' },
+      ],
       prompts: [],
     },
 
@@ -235,37 +222,43 @@ window.SITE = {
 
   /* ---------- 7. 简历 -------------------------------------- */
   resume: {
-    // TODO: 全部换成真实信息
     facts: [
-      { k: '所在地', v: 'TODO：城市' },
-      { k: '求职意向', v: 'AIGC 视频创作（广告 / 短剧）' },
-      { k: '到岗时间', v: 'TODO：随时 / 具体日期' },
-      { k: '邮箱', v: 'your@email.com' },
+      { k: '所在地', v: '长沙' },
+      { k: '求职意向', v: 'AIGC 视觉设计师（广告 / 短剧）' },
+      { k: '到岗时间', v: '随时到岗' },
+      { k: '邮箱', v: '2353342839@qq.com' },
     ],
     toolMatrix: [
       { group: '视频生成', items: [
-        { name: '可灵', level: 1 }, { name: '即梦', level: 1 },
-        { name: 'Runway', level: 2 }, { name: 'Vidu', level: 3 },
+        { name: 'Kling（可灵）', level: 1 }, { name: 'Seedance', level: 1 },
+        { name: 'libtv', level: 1 }, { name: 'Runway', level: 2 },
       ]},
       { group: '图像与分镜', items: [
-        { name: 'Midjourney', level: 1 }, { name: 'Stable Diffusion', level: 2 },
-        { name: 'Nano Banana', level: 2 },
+        { name: 'Midjourney', level: 1 }, { name: 'Nano Banana', level: 1 },
+        { name: 'GPT-image2', level: 1 }, { name: 'PS', level: 1 },
+      ]},
+      { group: '剧本与策划', items: [
+        { name: 'ChatGPT', level: 1 }, { name: 'DeepSeek', level: 1 },
       ]},
       { group: '剪辑与后期', items: [
-        { name: 'Premiere', level: 1 }, { name: '剪映专业版', level: 1 },
-        { name: 'After Effects', level: 2 }, { name: 'DaVinci Resolve', level: 2 },
-      ]},
-      { group: '声音', items: [
-        { name: 'ElevenLabs', level: 2 }, { name: 'Audition', level: 3 },
+        { name: '剪映专业版', level: 1 }, { name: 'DaVinci Resolve', level: 2 },
+        { name: 'After Effects', level: 2 },
       ]},
     ],
     experience: [
       {
-        period: '2025 — 至今',
-        title: 'TODO：项目 / 公司名称',
-        role: 'TODO：你的角色',
-        body: 'TODO：你负责什么、怎么做的、结果如何。',
-        tags: ['TODO'],
+        period: '2025.09 — 2026.08',
+        title: '长沙市灵启智能科技有限责任公司',
+        role: 'AIGC 视觉设计师',
+        body: '负责真人短剧、剧情短片、CG 动作与品牌广告的 AIGC 制作。覆盖从前期视觉开发到最终成片的完整生产流程：依据剧本与 Brief 建立人物/场景/道具资产，完成分镜、提示词编写、图像/视频生成与多版本筛选；重点解决连续影像中的变脸、服装漂移、空间跳变、人物站位错位等一致性问题；衔接剪映完成剪辑、调色、字幕、音效与包装，广告项目可继续延展至 KV、主图、详情页及宣发视觉。',
+        tags: ['短剧', '广告', 'CG', '全流程'],
+      },
+      {
+        period: '2024.08 — 2025.06',
+        title: '黄红蓝艺术培训',
+        role: '少儿美术教师',
+        body: '负责少儿创意画课程设计与教学。长期训练将抽象创意拆解为可执行步骤的能力，在高频教学反馈中形成清晰沟通、审美判断与快速调整能力。',
+        tags: ['美术教育', '视觉表达'],
       },
     ],
     pdf: '',
@@ -277,9 +270,9 @@ window.SITE = {
     title: '想聊片子，<em>随时找我。</em>',
     body: '广告、短剧、或者只是想问问某个镜头怎么做出来的，都欢迎。工作日一般当天回。',
     methods: [
-      { label: '邮箱', value: 'your@email.com', copy: 'your@email.com' },
-      { label: '微信', value: 'your_wechat', copy: 'your_wechat' },
-      { label: '手机', value: '138-0000-0000', copy: '13800000000' },
+      { label: '邮箱', value: '2353342839@qq.com', copy: '2353342839@qq.com' },
+      { label: '微信', value: 'cc152320a', copy: 'cc152320a' },
+      { label: '手机', value: '150-7998-8759', copy: '15079988759' },
     ],
   },
 };
