@@ -204,6 +204,8 @@
      渲染：数据条 / 自述 / 工作流
      ========================================================= */
   function renderStats(mount) {
+    // stats 为空时整块隐藏，不留空边框
+    if (!S.stats || !S.stats.length) { mount.style.display = 'none'; return; }
     mount.innerHTML = `<div class="container stats-grid">` + (S.stats || []).map((s, i) => `
       <div class="stat reveal" style="--d:${i * 70}ms">
         <span class="stat-value"><span data-count="${esc(s.value)}">0</span><i>${esc(s.unit)}</i></span>
@@ -364,7 +366,11 @@
                 <div>
                   <h3>${esc(e.title)}</h3>
                   <p class="exp-role">${esc(e.role)}</p>
-                  <p class="exp-body">${esc(e.body)}</p>
+                  ${Array.isArray(e.body)
+                    ? `<ul class="exp-duties">${e.body.map(d => `<li>${esc(d)}</li>`).join('')}</ul>`
+                    : `<p class="exp-body">${esc(e.body)}</p>`}
+                  ${e.projectTypes ? `<p class="exp-extra"><span>项目类型</span>${esc(e.projectTypes)}</p>` : ''}
+                  ${e.pipeline ? `<p class="exp-extra"><span>制作链路</span>${esc(e.pipeline)}</p>` : ''}
                   <div class="exp-tags">${(e.tags || []).map(t => `<span>${esc(t)}</span>`).join('')}</div>
                 </div>
               </div>`).join('')}

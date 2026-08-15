@@ -818,6 +818,28 @@ h2.display { font-size: clamp(30px, 3.6vw, 46px); }
 .exp-item h3 { font-family: var(--font-display); font-weight: 400; font-size: 27px; margin-bottom: 8px; }
 .exp-role { font-size: 13px; font-weight: 600; color: var(--accent); margin-bottom: 12px; }
 .exp-body { max-width: 62ch; color: var(--ink-2); font-size: 15px; line-height: 1.75; }
+.exp-duties {
+  max-width: 66ch; margin: 4px 0 0; padding: 0; list-style: none;
+  display: flex; flex-direction: column; gap: 10px;
+}
+.exp-duties li {
+  position: relative; padding-left: 18px;
+  color: var(--ink-2); font-size: 14px; line-height: 1.7;
+}
+.exp-duties li::before {
+  content: ''; position: absolute; left: 0; top: 9px;
+  width: 5px; height: 5px; border-radius: 50%; background: var(--accent);
+}
+.exp-extra {
+  max-width: 66ch; margin-top: 14px; padding-top: 12px;
+  border-top: 1px dashed var(--rule);
+  color: var(--ink-2); font-size: 13px; line-height: 1.7;
+}
+.exp-extra span {
+  display: inline-block; margin-right: 10px;
+  font-family: var(--font-mono); font-size: 10px; letter-spacing: .1em;
+  text-transform: uppercase; color: var(--accent);
+}
 .exp-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 14px; }
 .exp-tags span {
   padding: 4px 8px; border: 1px solid var(--rule); border-radius: var(--r-xs);
